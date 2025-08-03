@@ -587,351 +587,176 @@
 
   <section id="contact" class="about-contact" style="background: #e3f2fd;">
     <h2>Contact Us</h2>
-    <p>Reach us on:</p>
-    <div class="contact-icons">
-      <div style="display: flex; justify-content: center; gap: 20px;">
-        <a href="https://wa.me/919949840365" target="_blank">
-          <img src="https://cdn-icons-png.flaticon.com/512/733/733585.png" alt="WhatsApp" style="height: 30px; width: 30px;">
-        </a>
-        <a href="https://instagram.com/vizagMilletBites" target="_blank">
-          <img src="https://cdn-icons-png.flaticon.com/512/174/174855.png" alt="Instagram" style="height: 30px; width: 30px;">
-        </a>
-        <a href="tel:+919949840365" target="_blank">
-          <img src="https://cdn-icons-png.flaticon.com/512/724/724664.png" alt="Phone" style="height: 30px; width: 30px;">
-        </a>
-      </div>
+  <header>
+    <h1 style="text-align:center; color:#33691e; font-size:2em; margin:20px 0;">Your Cart</h1>
+    <div style="text-align:center; margin-bottom:20px;">
+      <button id="open-cart" style="background:#388e3c; color:#fff; border:none; border-radius:20px; padding:10px 30px; font-size:1.1em; cursor:pointer;">View Cart</button>
     </div>
-  </section>
-
-  <section id="reviews" class="about-contact" style="background: #fff8e1;">
-    <h2>Customer Reviews</h2>
-    <p>“Absolutely loved the Ragi Mixture—crunchy and wholesome!”</p>
-    <p>“Fast delivery, fresh taste. Will order again.”</p>
-  </section>
-
-  <footer>
-    &copy; 2025 Millet Bites. All rights reserved.
-  </footer>
-  <a href="https://wa.me/919949840365" class="whatsapp-float" target="_blank">💬</a>
-
+  </header>
+  <div class="scroll"><span>🎉 Special Offer: Get 10% OFF on all orders above ₹500! Limited time only! 🎉</span></div>
+  <div id="products-grid" class="product-grid" style="margin:30px auto; max-width:900px;"></div>
+  <div id="cart-panel" style="display:none; position:fixed; top:50px; left:50%; transform:translateX(-50%); background:#fff; box-shadow:0 2px 16px rgba(0,0,0,0.15); border-radius:12px; z-index:2000; width:420px; max-width:95vw; padding:24px;">
+    <h2 style="text-align:center; color:#33691e; margin-bottom:18px;"><span style="font-size:1.2em;">🛒</span> Your Cart</h2>
+    <div id="cart-items"></div>
+    <div id="cart-total" style="margin:18px 0; text-align:center; font-size:1.1em; color:#33691e;"></div>
+    <div style="display:flex; gap:12px; justify-content:center; margin-top:18px;">
+      <button id="clear-cart" style="background:#b71c1c; color:#fff; border:none; border-radius:8px; padding:10px 24px; font-weight:bold; cursor:pointer;">Clear Cart</button>
+      <button id="order-whatsapp" style="background:#25d366; color:#fff; border:none; border-radius:8px; padding:10px 24px; font-weight:bold; cursor:pointer;">Order via WhatsApp</button>
+      <button id="close-cart" style="background:#222; color:#fff; border:none; border-radius:8px; padding:10px 24px; font-weight:bold; cursor:pointer;">Close</button>
+    </div>
+  </div>
 <script>
-    let slideIndex = 1;
-    let slideTimer;
-
-    function showSlides(n) {
-      const slides = document.querySelectorAll(".slides");
-      const dots = document.querySelectorAll(".dot");
-
-      if (n > slides.length) slideIndex = 1;
-      if (n < 1) slideIndex = slides.length;
-
-      slides.forEach(slide => slide.style.display = "none");
-      dots.forEach(dot => dot.classList.remove("active-dot"));
-
-      slides[slideIndex - 1].style.display = "block";
-      dots[slideIndex - 1].classList.add("active-dot");
-    }
-
-    function nextSlide() {
-      slideIndex++;
-      showSlides(slideIndex);
-    }
-
-    function currentSlide(n) {
-      clearTimeout(slideTimer);
-      slideIndex = n;
-      showSlides(slideIndex);
-      autoSlides();
-    }
-
-    function autoSlides() {
-      slideTimer = setTimeout(() => {
-        nextSlide();
-        autoSlides();
-      }, 5000);
-    }
-
-    document.addEventListener("DOMContentLoaded", () => {
-      showSlides(slideIndex);
-      autoSlides();
-
-      const dots = document.querySelectorAll(".dot");
-      dots.forEach(dot => {
-        dot.addEventListener("click", () => {
-          const index = parseInt(dot.getAttribute("data-index"));
-          currentSlide(index);
-        });
-      });
-    });
-  
-    const products = [
-      { name: "Combo 1", image: "b1.jpeg", price: 299, type: "combo" },
-      { name: "Combo 2", image: "b2.jpeg", price: 399, type: "combo" },
-      { name: "Combo 3", image: "b3.jpeg", price: 399, type: "combo" },
-      { name: "Combo 4", image: "b4.jpeg", price: 599, type: "combo" },
-      { name: "Ragi Mixture", image: "Ragi Mixture.jpeg", price: 60, type: "weight" },
-      { name: "Ragi Chegodilu", image: "Ragi Chegodilu.jpeg", price: 60, type: "weight" },
-      { name: "Ragi Murukkulu", image: "Ragi Murukkulu.jpeg", price: 60, type: "weight" },
-      { name: "Jowar Mixture", image: "Jowar Mixture.jpeg", price: 60, type: "weight" },
-      { name: "Jowar Murukkulu", image: "Jowar Murukkulu.jpeg", price: 60, type: "weight" },
-      { name: "Jowar Ribbon Pakodi", image: "Jowar Ribbon Pakodi.jpeg", price: 60, type: "weight" },
-      { name: "Foxtail Sev", image: "Foxtail Sev.jpeg", price: 60, type: "weight" },
-      { name: "Arikalu Jantikalu", image: "Arikalu Jantikalu.jpeg", price: 60, type: "weight" },
-      { name: "Samalu Boondi", image: "Samalu Boondi.jpeg", price: 60, type: "weight" },
-      { name: "Dry Fruit Mixture", image: "Dry Fruit Mixture.jpeg", price: 180, type: "weight" },
-      { name: "Dry Fruit Laddu", image: "Dry Fruit Laddu.jpeg", price: 300, type: "weight", minQty: 250 },
-      { name: "Cashew Bar", image: "Cashew Bar.jpeg", price: 200, type: "weight", minQty: 250 },
-      { name: "Panchadara Gavvalu", image: "Panchadara Gavvalu.jpg", price: 100, type: "weight", minQty: 250 },
-      { name: "Bellam Gavvalu", image: "Bellam Gavvalu.jpeg", price: 100, type: "weight", minQty: 250 },
-      { name: "Hot Gavvalu", image: "Hot Gavvalu.jpeg", price: 100, type: "weight", minQty: 250 }
-    ];
-
-    const cart = {};
-
-    function renderProducts() {
-      const grid = document.getElementById("product-grid");
-      grid.innerHTML = ''; // clear existing content
-
-      products.forEach(product => {
-        const div = document.createElement("div");
-        div.className = "product-card";
-        
-        if (product.type === "combo") {
-          div.innerHTML = `
-            <div class="discount-badge">20% OFF</div>
-            <img src="${product.image}" alt="${product.name}" />
-            <h4>${product.name}</h4>
-            <p>₹${product.price} - pack</p>
-            <div class="quantity-controls">
-              <button onclick="removeFromCart('${product.name}')">-</button>
-              <select id="select-${product.name}">
-                ${[1, 2, 3, 5].map(p => `<option value="${p}">${p} Pack${p > 1 ? 's' : ''}</option>`).join('')}
-              </select>
-              <button onclick="addToCart('${product.name}')">+</button>
-            </div>
-            <div class="cart-status" id="status-${product.name}"></div>
-          `;
-        } else {
-          // Determine the quantity options based on whether product has minQty
-          const quantityOptions = product.minQty === 250 ? [
-            { value: 250, label: "250g" },
-            { value: 500, label: "500g" },
-            { value: 1000, label: "1KG" }
-          ] : [
-            { value: 100, label: "100g" },
-            { value: 250, label: "250g" },
-            { value: 500, label: "500g" },
-            { value: 1000, label: "1KG" }
-          ];
-
-          div.innerHTML = `
-            <div class="discount-badge">20% OFF</div>
-            <img src="${product.image}" alt="${product.name}" />
-            <h4>${product.name}</h4>
-            <p>₹${product.price} - ${product.minQty === 250 ? '250g' : '100g'}</p>
-            <div class="quantity-controls">
-              <button onclick="removeFromCart('${product.name}')">-</button>
-              <select id="select-${product.name}">
-                ${quantityOptions.map(opt => `<option value="${opt.value}">${opt.label}</option>`).join('')}
-              </select>
-              <button onclick="addToCart('${product.name}')">+</button>
-            </div>
-            <div class="cart-status" id="status-${product.name}"></div>
-          `;
-        }
-        
-        grid.appendChild(div);
-      });
-    }
-
-    function addToCart(productName) {
-      const product = products.find(p => p.name === productName);
-      if (!product) return;
-      
-      const selectElement = document.getElementById(`select-${productName}`);
-      const value = parseInt(selectElement.value);
-      
-      if (!cart[productName]) {
-        cart[productName] = {
-          product: product,
-          quantity: 0,
-          unit: product.type === "combo" ? "pack" : "g"
-        };
+// Inline product data
+const products = [
+  { name: "Combo 3", price: 300, unit: "pack", type: "combo", minQty: 1, maxQty: 10, qtyStep: 1 },
+  { name: "Combo 2", price: 200, unit: "pack", type: "combo", minQty: 1, maxQty: 10, qtyStep: 1 },
+  { name: "Dry Fruit Laddu", price: 60, unit: "250g", type: "weight", minQty: 250, maxQty: 2000, qtyStep: 250 },
+  { name: "Ragi Mixture", price: 90, unit: "100g", type: "weight", minQty: 100, maxQty: 1000, qtyStep: 100 },
+  { name: "Arikalu Jantikalu", price: 160, unit: "100g", type: "weight", minQty: 100, maxQty: 1000, qtyStep: 100 }
+];
+let cart = [];
+function renderProducts() {
+  const grid = document.getElementById('products-grid');
+  grid.innerHTML = '';
+  products.forEach((product, idx) => {
+    let selectedQty = product.minQty;
+    const card = document.createElement('div');
+    card.className = 'product-card';
+    card.style.boxShadow = '0 2px 8px rgba(0,0,0,0.08)';
+    card.style.borderRadius = '10px';
+    card.style.padding = '18px';
+    card.style.margin = '10px';
+    card.style.background = '#fff';
+    card.style.textAlign = 'center';
+    card.innerHTML = `
+      <h4 style="color:#33691e; margin-bottom:8px;">${product.name}</h4>
+      <p style="color:#b71c1c; font-weight:bold; margin-bottom:8px;">Price: ₹${product.price} / ${product.qtyStep}${product.unit}</p>
+      <div style="margin-bottom:10px;">
+        <button class="qty-btn" id="minus-${idx}" style="padding:4px 12px;">-</button>
+        <span id="qty-${idx}" style="margin:0 12px; font-weight:bold;">${selectedQty}</span>
+        <button class="qty-btn" id="plus-${idx}" style="padding:4px 12px;">+</button>
+        <span>${product.unit}</span>
+      </div>
+      <div id="selected-${idx}" style="margin-top:8px; color:#33691e; font-weight:bold;"></div>
+      <button id="addcart-${idx}" style="background:#388e3c; color:#fff; border:none; border-radius:6px; padding:7px 18px; font-weight:bold; margin-top:10px; cursor:pointer;">Add to Cart</button>
+    `;
+    grid.appendChild(card);
+    document.getElementById(`minus-${idx}`).onclick = function() {
+      if (selectedQty - product.qtyStep >= product.minQty) {
+        selectedQty -= product.qtyStep;
+        document.getElementById(`qty-${idx}`).textContent = selectedQty;
+        document.getElementById(`selected-${idx}`).textContent = `Selected: ${selectedQty} ${product.unit}`;
       }
-      
-      if (product.type === "combo") {
-        cart[productName].quantity += value;
-      } else {
-        cart[productName].quantity += value;
+    };
+    document.getElementById(`plus-${idx}`).onclick = function() {
+      if (selectedQty + product.qtyStep <= product.maxQty) {
+        selectedQty += product.qtyStep;
+        document.getElementById(`qty-${idx}`).textContent = selectedQty;
+        document.getElementById(`selected-${idx}`).textContent = `Selected: ${selectedQty} ${product.unit}`;
       }
-      
-      updateStatus(productName);
-      updateCartDisplay();
-      updateCartCount();
-    }
-
-    function removeFromCart(productName) {
-      const product = products.find(p => p.name === productName);
-      if (!product || !cart[productName]) return;
-      
-      const selectElement = document.getElementById(`select-${productName}`);
-      const value = parseInt(selectElement.value);
-      
-      cart[productName].quantity -= value;
-      
-      if (cart[productName].quantity <= 0) {
-        delete cart[productName];
+    };
+    document.getElementById(`addcart-${idx}`).onclick = function() {
+      addToCart(product, selectedQty);
+      renderCart();
+    };
+  });
+}
+function addToCart(product, quantity) {
+  const idx = cart.findIndex(item => item.name === product.name && item.unit === product.unit);
+  if (idx > -1) {
+    cart[idx].quantity = quantity;
+  } else {
+    cart.push({ ...product, quantity });
+  }
+}
+function renderCart() {
+  const cartPanel = document.getElementById('cart-panel');
+  const cartItemsDiv = document.getElementById('cart-items');
+  cartItemsDiv.innerHTML = '';
+  let total = 0;
+  if (cart.length === 0) {
+    cartItemsDiv.innerHTML = '<p style="color:#b71c1c; font-size:13px;">No items in cart.</p>';
+  } else {
+    cartItemsDiv.innerHTML = `
+      <table style="width:100%; font-size:13px; border-collapse:collapse;">
+        <thead>
+          <tr style="border-bottom:1px solid #eee;">
+            <th style="text-align:left; padding:4px;">Product</th>
+            <th style="text-align:right; padding:4px;">Qty/Vol</th>
+            <th style="text-align:right; padding:4px;">Unit Price</th>
+            <th style="text-align:right; padding:4px;">Total</th>
+          </tr>
+        </thead>
+        <tbody>
+          ${cart.map((item, idx) => {
+            const steps = item.quantity / item.qtyStep;
+            const itemTotal = item.price * steps;
+            total += itemTotal;
+            return `
+              <tr>
+                <td style="padding:4px;">${item.name}</td>
+                <td style="padding:4px; text-align:right;">
+                  <button class="cart-minus" data-idx="${idx}" style="padding:2px 7px; margin-right:4px;">-</button>
+                  ${item.quantity} ${item.unit}
+                  <button class="cart-plus" data-idx="${idx}" style="padding:2px 7px; margin-left:4px;">+</button>
+                </td>
+                <td style="padding:4px; text-align:right;">₹${item.price} / ${item.qtyStep}${item.unit}</td>
+                <td style="padding:4px; text-align:right;">₹${itemTotal}</td>
+              </tr>
+            `;
+          }).join('')}
+        </tbody>
+      </table>
+    `;
+  }
+  document.getElementById('cart-total').innerHTML = `<span>Total Payable: <b style="font-size:1.3em;">₹${total}</b></span>`;
+  document.querySelectorAll('.cart-minus').forEach(btn => {
+    btn.onclick = function() {
+      const idx = parseInt(btn.getAttribute('data-idx'));
+      const item = cart[idx];
+      if (item.quantity - item.qtyStep >= item.minQty) {
+        item.quantity -= item.qtyStep;
+        renderCart();
       }
-      
-      updateStatus(productName);
-      updateCartDisplay();
-      updateCartCount();
-    }
-
-    function updateStatus(productName) {
-      const status = document.getElementById(`status-${productName}`);
-      if (cart[productName]) {
-        const item = cart[productName];
-        if (item.product.type === "combo") {
-          status.textContent = `In cart: ${item.quantity} Pack${item.quantity > 1 ? 's' : ''}`;
-        } else {
-          status.textContent = `In cart: ${item.quantity >= 1000 ? (item.quantity/1000).toFixed(2) + ' kg' : item.quantity + ' g'}`;
-        }
-      } else {
-        status.textContent = "";
+    };
+  });
+  document.querySelectorAll('.cart-plus').forEach(btn => {
+    btn.onclick = function() {
+      const idx = parseInt(btn.getAttribute('data-idx'));
+      const item = cart[idx];
+      if (item.quantity + item.qtyStep <= item.maxQty) {
+        item.quantity += item.qtyStep;
+        renderCart();
       }
-    }
-
-    function updateCartCount() {
-      const count = Object.keys(cart).length;
-      document.getElementById("cartCount").textContent = count;
-      const cartCount2 = document.getElementById("cartCount2");
-      if (cartCount2) cartCount2.textContent = count;
-    }
-
-    function updateCartDisplay() {
-      const cartItemsContainer = document.getElementById("panel-cart-items");
-      let total = 0;
-      
-      if (Object.keys(cart).length === 0) {
-        cartItemsContainer.innerHTML = '<div class="empty-cart">Your cart is empty</div>';
-        document.querySelector(".cart-summary p").textContent = `Total: ₹0.00`;
-        return;
-      }
-      
-      let cartItemsHTML = '';
-      for (const productName in cart) {
-        const item = cart[productName];
-        let itemTotal = 0;
-        let qtyControls = "";
-        
-        if (item.product.type === "combo") {
-          itemTotal = item.quantity * item.product.price;
-          qtyControls = `
-            <button onclick="adjustCartItem('${productName}', -1)">-</button>
-            ${item.quantity} Pack${item.quantity > 1 ? 's' : ''}
-            <button onclick="adjustCartItem('${productName}', 1)">+</button>
-          `;
-        } else {
-          // For weight-based items, price is per 100g
-          itemTotal = (item.quantity / 100) * item.product.price;
-          qtyControls = `
-            <button onclick="adjustCartItem('${productName}', -${item.product.minQty === 250 ? 250 : 100})">-</button>
-            ${item.quantity >= 1000 ? (item.quantity/1000).toFixed(2) + ' kg' : item.quantity + ' g'}
-            <button onclick="adjustCartItem('${productName}', ${item.product.minQty === 250 ? 250 : 100})">+</button>
-          `;
-        }
-        
-        total += itemTotal;
-        
-        cartItemsHTML += `
-          <div class="cart-item">
-            <div class="cart-item-name">${productName}</div>
-            <div class="cart-item-qty">${qtyControls}</div>
-            <div class="cart-item-price">₹${itemTotal.toFixed(2)}</div>
-          </div>
-        `;
-      }
-      
-      cartItemsContainer.innerHTML = cartItemsHTML;
-      document.querySelector(".cart-summary p").textContent = `Total: ₹${total.toFixed(2)}`;
-    }
-
-    function adjustCartItem(productName, adjustment) {
-      if (!cart[productName]) return;
-      
-      cart[productName].quantity += adjustment;
-      
-      if (cart[productName].quantity <= 0) {
-        delete cart[productName];
-      }
-      
-      updateStatus(productName);
-      updateCartDisplay();
-      updateCartCount();
-    }
-
-    function toggleCartPanel() {
-      document.getElementById("cartPanel").classList.toggle("active");
-      document.getElementById("overlay").classList.toggle("active");
-    }
-
-    function sendOrder() {
-      if (Object.keys(cart).length === 0) {
-        alert("Your cart is empty!");
-        return;
-      }
-      
-      let msg = "Hello! I'd like to order:\n\n";
-      
-      for (const productName in cart) {
-        const item = cart[productName];
-        if (item.product.type === "combo") {
-          msg += `${productName}: ${item.quantity} Pack${item.quantity > 1 ? 's' : ''}\n`;
-        } else {
-          msg += `${productName}: ${item.quantity >= 1000 ? (item.quantity/1000).toFixed(2) + ' kg' : item.quantity + ' g'}\n`;
-        }
-      }
-      
-      // Calculate total
-      let total = 0;
-      for (const productName in cart) {
-        const item = cart[productName];
-        if (item.product.type === "combo") {
-          total += item.quantity * item.product.price;
-        } else {
-          total += (item.quantity / 100) * item.product.price;
-        }
-      }
-      
-      msg += `\nTotal: ₹${total.toFixed(2)}\n\nPlease confirm my order.`;
-      
-      const encodedMsg = encodeURIComponent(msg);
-      window.open(`https://wa.me/919949840365?text=${encodedMsg}`, "_blank");
-    }
-
-    document.addEventListener("DOMContentLoaded", () => {
-      renderProducts();
-      
-      // Cart panel toggle
-      document.getElementById("cartIcon").addEventListener("click", toggleCartPanel);
-      document.getElementById("cartIcon2").addEventListener("click", toggleCartPanel);
-      document.getElementById("closeCart").addEventListener("click", toggleCartPanel);
-      document.getElementById("overlay").addEventListener("click", toggleCartPanel);
-      
-      // Clear cart button
-      document.querySelector(".clear").addEventListener("click", () => {
-        for (const productName in cart) {
-          delete cart[productName];
-          updateStatus(productName);
-        }
-        updateCartDisplay();
-        updateCartCount();
-      });
-      
-      // Order button
-      document.querySelector(".order").addEventListener("click", sendOrder);
-    });
-  </script>
-</body>
-</html>
+    };
+  });
+}
+document.getElementById('open-cart').onclick = () => {
+  document.getElementById('cart-panel').style.display = 'block';
+  document.getElementById('open-cart').style.display = 'none';
+  renderCart();
+};
+document.getElementById('close-cart').onclick = () => {
+  document.getElementById('cart-panel').style.display = 'none';
+  document.getElementById('open-cart').style.display = 'block';
+};
+document.getElementById('clear-cart').onclick = () => {
+  cart = [];
+  renderCart();
+};
+document.getElementById('order-whatsapp').onclick = () => {
+  if (cart.length === 0) {
+    alert('Your cart is empty!');
+    return;
+  }
+  let msg = 'Order from Special Millets:%0A';
+  cart.forEach(item => {
+    msg += `• ${item.name}: ${item.quantity} ${item.unit} (₹${item.price} per ${item.qtyStep}${item.unit})%0A`;
+  });
+  msg += `Total: ₹${cart.reduce((sum, item) => sum + (item.price * (item.quantity / item.qtyStep)), 0)}%0A`;
+  const whatsappNumber = '919949840365';
+  const url = `https://wa.me/${whatsappNumber}?text=${msg}`;
+  window.open(url, '_blank');
+};
+renderProducts();
+</script>
