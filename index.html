@@ -664,7 +664,7 @@
       });
     });
   
-  const products = [
+    const products = [
       { name: "Combo 1", image: "b1.jpeg", price: 299, type: "combo" },
       { name: "Combo 2", image: "b2.jpeg", price: 399, type: "combo" },
       { name: "Combo 3", image: "b3.jpeg", price: 399, type: "combo" },
@@ -679,11 +679,11 @@
       { name: "Arikalu Jantikalu", image: "Arikalu Jantikalu.jpeg", price: 60, type: "weight" },
       { name: "Samalu Boondi", image: "Samalu Boondi.jpeg", price: 60, type: "weight" },
       { name: "Dry Fruit Mixture", image: "Dry Fruit Mixture.jpeg", price: 180, type: "weight" },
-      { name: "Dry Fruit Laddu", image: "Dry Fruit Laddu.jpeg", price: 300, type: "weight" },
-      { name: "Cashew Bar", image: "Cashew Bar.jpeg", price: 200, type: "weight" },
-      { name: "Panchadara Gavvalu", image: "Panchadara Gavvalu.jpg", price: 100, type: "weight" },
-      { name: "Bellam Gavvalu", image: "Bellam Gavvalu.jpeg", price: 100, type: "weight" },
-      { name: "Hot Gavvalu", image: "Hot Gavvalu.jpeg", price: 100, type: "weight" }
+      { name: "Dry Fruit Laddu", image: "Dry Fruit Laddu.jpeg", price: 300, type: "weight", minQty: 250 },
+      { name: "Cashew Bar", image: "Cashew Bar.jpeg", price: 200, type: "weight", minQty: 250 },
+      { name: "Panchadara Gavvalu", image: "Panchadara Gavvalu.jpg", price: 100, type: "weight", minQty: 250 },
+      { name: "Bellam Gavvalu", image: "Bellam Gavvalu.jpeg", price: 100, type: "weight", minQty: 250 },
+      { name: "Hot Gavvalu", image: "Hot Gavvalu.jpeg", price: 100, type: "weight", minQty: 250 }
     ];
 
     const cart = {};
@@ -712,20 +712,27 @@
             <div class="cart-status" id="status-${product.name}"></div>
           `;
         } else {
+          // Determine the quantity options based on whether product has minQty
+          const quantityOptions = product.minQty === 250 ? [
+            { value: 250, label: "250g" },
+            { value: 500, label: "500g" },
+            { value: 1000, label: "1KG" }
+          ] : [
+            { value: 100, label: "100g" },
+            { value: 250, label: "250g" },
+            { value: 500, label: "500g" },
+            { value: 1000, label: "1KG" }
+          ];
+
           div.innerHTML = `
             <div class="discount-badge">20% OFF</div>
             <img src="${product.image}" alt="${product.name}" />
             <h4>${product.name}</h4>
-            <p>₹${product.price} - 100g</p>
+            <p>₹${product.price} - ${product.minQty === 250 ? '250g' : '100g'}</p>
             <div class="quantity-controls">
               <button onclick="removeFromCart('${product.name}')">-</button>
               <select id="select-${product.name}">
-                ${[
-                  { value: 100, label: "100g" },
-                  { value: 250, label: "250g" },
-                  { value: 500, label: "500g" },
-                  { value: 1000, label: "1KG" }
-                ].map(opt => `<option value="${opt.value}">${opt.label}</option>`).join('')}
+                ${quantityOptions.map(opt => `<option value="${opt.value}">${opt.label}</option>`).join('')}
               </select>
               <button onclick="addToCart('${product.name}')">+</button>
             </div>
@@ -829,9 +836,9 @@
           // For weight-based items, price is per 100g
           itemTotal = (item.quantity / 100) * item.product.price;
           qtyControls = `
-            <button onclick="adjustCartItem('${productName}', -100)">-</button>
+            <button onclick="adjustCartItem('${productName}', -${item.product.minQty === 250 ? 250 : 100})">-</button>
             ${item.quantity >= 1000 ? (item.quantity/1000).toFixed(2) + ' kg' : item.quantity + ' g'}
-            <button onclick="adjustCartItem('${productName}', 100)">+</button>
+            <button onclick="adjustCartItem('${productName}', ${item.product.minQty === 250 ? 250 : 100})">+</button>
           `;
         }
         
