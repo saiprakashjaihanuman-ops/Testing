@@ -506,8 +506,6 @@
   padding: 20px 10px;
   border-radius: 16px;
 }
-
-
   </style>
 </head>
 <body>
@@ -667,146 +665,131 @@
     });
   
   const products = [
-      { name: "combo 1", image: "Hot Gavvalu.jpeg", price: 0 },
-      { name: "combo 2", image: "Hot Gavvalu.jpeg", price: 299 },
-      { name: "Combo 3", image: "Hot Gavvalu.jpeg", price: 399 },
-      { name: "Combo 4", image: "Hot Gavvalu.jpeg", price: 599 },
-      { name: "Ragi Mixture", image: "Ragi Mixture.jpeg", price: 60 },
-      { name: "Ragi Chegodilu", image: "Ragi Chegodilu.jpeg", price: 60 },
-      { name: "Ragi Murukkulu", image: "Ragi Murukkulu.jpeg", price: 60 },
-      { name: "Jowar Mixture", image: "Jowar Mixture.jpeg", price: 60 },
-      { name: "Jowar Murukkulu", image: "Jowar Murukkulu.jpeg", price: 60 },
-      { name: "Jowar Ribbon Pakodi", image: "Jowar Ribbon Pakodi.jpeg", price: 60 },
-      { name: "Foxtail Sev", image: "Foxtail Sev.jpeg", price: 60 },
-      { name: "Arikalu Jantikalu", image: "Arikalu Jantikalu.jpeg", price: 60 },
-      { name: "Samalu Boondi", image: "Samalu Boondi.jpeg", price: 60 },
-      { name: "Dry Fruit Mixture", image: "Dry Fruit Mixture.jpeg", price: 180 }
-    ];
-  
-  const products3 = [
-      { name: "Dry Fruit Laddu", image: "Dry Fruit Laddu.jpeg", price: 300 },
-      { name: "Cashew Bar", image: "Cashew Bar.jpeg", price: 200 },
-      { name: "Panchadara Gavvalu", image: "Panchadara Gavvalu.jpg", price: 100 },
-      { name: "Bellam Gavvalu", image: "Bellam Gavvalu.jpeg", price: 100 },
-      { name: "Hot Gavvalu", image: "Hot Gavvalu.jpeg", price: 100 }
+      { name: "Combo 1", image: "b1.jpeg", price: 299, type: "combo" },
+      { name: "Combo 2", image: "b2.jpeg", price: 399, type: "combo" },
+      { name: "Combo 3", image: "b3.jpeg", price: 399, type: "combo" },
+      { name: "Combo 4", image: "b4.jpeg", price: 599, type: "combo" },
+      { name: "Ragi Mixture", image: "Ragi Mixture.jpeg", price: 60, type: "weight" },
+      { name: "Ragi Chegodilu", image: "Ragi Chegodilu.jpeg", price: 60, type: "weight" },
+      { name: "Ragi Murukkulu", image: "Ragi Murukkulu.jpeg", price: 60, type: "weight" },
+      { name: "Jowar Mixture", image: "Jowar Mixture.jpeg", price: 60, type: "weight" },
+      { name: "Jowar Murukkulu", image: "Jowar Murukkulu.jpeg", price: 60, type: "weight" },
+      { name: "Jowar Ribbon Pakodi", image: "Jowar Ribbon Pakodi.jpeg", price: 60, type: "weight" },
+      { name: "Foxtail Sev", image: "Foxtail Sev.jpeg", price: 60, type: "weight" },
+      { name: "Arikalu Jantikalu", image: "Arikalu Jantikalu.jpeg", price: 60, type: "weight" },
+      { name: "Samalu Boondi", image: "Samalu Boondi.jpeg", price: 60, type: "weight" },
+      { name: "Dry Fruit Mixture", image: "Dry Fruit Mixture.jpeg", price: 180, type: "weight" },
+      { name: "Dry Fruit Laddu", image: "Dry Fruit Laddu.jpeg", price: 300, type: "weight" },
+      { name: "Cashew Bar", image: "Cashew Bar.jpeg", price: 200, type: "weight" },
+      { name: "Panchadara Gavvalu", image: "Panchadara Gavvalu.jpg", price: 100, type: "weight" },
+      { name: "Bellam Gavvalu", image: "Bellam Gavvalu.jpeg", price: 100, type: "weight" },
+      { name: "Hot Gavvalu", image: "Hot Gavvalu.jpeg", price: 100, type: "weight" }
     ];
 
-    const weights = [100, 250, 500, 1 , 5 ];
     const cart = {};
 
-function renderProducts() {
-  const grid = document.getElementById("product-grid");
-  grid.innerHTML = ''; // clear existing content
+    function renderProducts() {
+      const grid = document.getElementById("product-grid");
+      grid.innerHTML = ''; // clear existing content
 
-  products
-    .filter(product => product.name.toLowerCase().includes("combo"))
-    .forEach(product => {
-      const div = document.createElement("div");
-      div.className = "product-card";
-      div.innerHTML = `
-        <div class="discount-badge">20% OFF</div>
-        <img src="${product.image}" alt="${product.name}" />
-        <h4>${product.name}</h4>
-        <p>₹${product.price} - pack</p>
-        <div class="quantity-controls">
-          <button onclick="removeFromCart('${product.name}', 'pack')">-</button>
-          <select id="select-${product.name}">
-            ${[1, 2, 3, 5].map(p => `<option value="${p}">${p} Pack${p > 1 ? 's' : ''}</option>`).join('')}
-          </select>
-          <button onclick="addToCart('${product.name}', 'pack')">+</button>
-        </div>
-        <div class="cart-status" id="status-${product.name}"></div>
-      `;
-      grid.appendChild(div);
-    });
+      products.forEach(product => {
+        const div = document.createElement("div");
+        div.className = "product-card";
+        
+        if (product.type === "combo") {
+          div.innerHTML = `
+            <div class="discount-badge">20% OFF</div>
+            <img src="${product.image}" alt="${product.name}" />
+            <h4>${product.name}</h4>
+            <p>₹${product.price} - pack</p>
+            <div class="quantity-controls">
+              <button onclick="removeFromCart('${product.name}')">-</button>
+              <select id="select-${product.name}">
+                ${[1, 2, 3, 5].map(p => `<option value="${p}">${p} Pack${p > 1 ? 's' : ''}</option>`).join('')}
+              </select>
+              <button onclick="addToCart('${product.name}')">+</button>
+            </div>
+            <div class="cart-status" id="status-${product.name}"></div>
+          `;
+        } else {
+          div.innerHTML = `
+            <div class="discount-badge">20% OFF</div>
+            <img src="${product.image}" alt="${product.name}" />
+            <h4>${product.name}</h4>
+            <p>₹${product.price} - 100g</p>
+            <div class="quantity-controls">
+              <button onclick="removeFromCart('${product.name}')">-</button>
+              <select id="select-${product.name}">
+                ${[
+                  { value: 100, label: "100g" },
+                  { value: 250, label: "250g" },
+                  { value: 500, label: "500g" },
+                  { value: 1000, label: "1KG" }
+                ].map(opt => `<option value="${opt.value}">${opt.label}</option>`).join('')}
+              </select>
+              <button onclick="addToCart('${product.name}')">+</button>
+            </div>
+            <div class="cart-status" id="status-${product.name}"></div>
+          `;
+        }
+        
+        grid.appendChild(div);
+      });
+    }
 
-  products
-    .filter(product => !product.name.toLowerCase().includes("combo"))
-    .forEach(product => {
-      const div = document.createElement("div");
-      div.className = "product-card";
-      div.innerHTML = `
-        <div class="discount-badge">20% OFF</div>
-        <img src="${product.image}" alt="${product.name}" />
-        <h4>${product.name}</h4>
-        <p>₹${product.price} - 100g</p>
-        <div class="quantity-controls">
-          <button onclick="removeFromCart1('${product.name}', 'kg')">-</button>
-          <select id="select-${product.name}">
-            ${[
-            { value: 100, label: "100g" },
-            { value: 250, label: "250g" },
-            { value: 500, label: "500g" },
-            { value: 1000, label: "1KG" },
-            { value: 2000, label: "2KG" },
-            { value: 5000, label: "5KG" }
-          ]
-              .map(opt => `<option value="${opt.value}">${opt.label}</option>`)
-              .join('')}
-          </select>
-          <button onclick="addToCart1('${product.name}', 'kg')">+</button>
-        </div>
-        <div class="cart-status" id="status-${product.name}"></div>
-      `;
-      grid.appendChild(div);
-    });
-  
-    products3
-    .filter(product => !product.name.toLowerCase().includes("combo"))
-    .forEach(product => {
-      const div = document.createElement("div");
-      div.className = "product-card";
-      div.innerHTML = `
-        <div class="discount-badge">20% OFF</div>
-        <img src="${product.image}" alt="${product.name}" />
-        <h4>${product.name}</h4>
-        <p>₹${product.price} - 100g</p>
-        <div class="quantity-controls">
-          <button onclick="removeFromCart3('${product.name}', 'kg')">-</button>
-          <select id="select-${product.name}">
-            ${[
-            { value: 250, label: "250g" },
-            { value: 500, label: "500g" },
-            { value: 1000, label: "1KG" },
-            { value: 2000, label: "2KG" },
-            { value: 5000, label: "5KG" }
-          ]
-              .map(opt => `<option value="${opt.value}">${opt.label}</option>`)
-              .join('')}
-          </select>
-          <button onclick="addToCart3('${product.name}', 'kg')">+</button>
-        </div>
-        <div class="cart-status" id="status-${product.name}"></div>
-      `;
-      grid.appendChild(div);
-    });
-}
-
-      function addToCart(productName) {
-      const qty = parseInt(document.getElementById(`select-${productName}`).value);
+    function addToCart(productName) {
+      const product = products.find(p => p.name === productName);
+      if (!product) return;
+      
+      const selectElement = document.getElementById(`select-${productName}`);
+      const value = parseInt(selectElement.value);
+      
       if (!cart[productName]) {
-        const product = products.find(p => p.name === productName);
-        cart[productName] = { qty: 0, price: product.price };
+        cart[productName] = {
+          product: product,
+          quantity: 0,
+          unit: product.type === "combo" ? "pack" : "g"
+        };
       }
-      cart[productName].qty += qty;
+      
+      if (product.type === "combo") {
+        cart[productName].quantity += value;
+      } else {
+        cart[productName].quantity += value;
+      }
+      
       updateStatus(productName);
       updateCartDisplay();
       updateCartCount();
     }
 
     function removeFromCart(productName) {
-      const qty = parseInt(document.getElementById(`select-${productName}`).value);
-      if (!cart[productName]) return;
-      cart[productName].qty -= qty;
-      if (cart[productName].qty <= 0) delete cart[productName];
+      const product = products.find(p => p.name === productName);
+      if (!product || !cart[productName]) return;
+      
+      const selectElement = document.getElementById(`select-${productName}`);
+      const value = parseInt(selectElement.value);
+      
+      cart[productName].quantity -= value;
+      
+      if (cart[productName].quantity <= 0) {
+        delete cart[productName];
+      }
+      
       updateStatus(productName);
       updateCartDisplay();
       updateCartCount();
     }
-  function updateStatus(productName) {
+
+    function updateStatus(productName) {
       const status = document.getElementById(`status-${productName}`);
       if (cart[productName]) {
-        status.textContent = `In cart: ${cart[productName].qty.toFixed(2)} Pack`;
+        const item = cart[productName];
+        if (item.product.type === "combo") {
+          status.textContent = `In cart: ${item.quantity} Pack${item.quantity > 1 ? 's' : ''}`;
+        } else {
+          status.textContent = `In cart: ${item.quantity >= 1000 ? (item.quantity/1000).toFixed(2) + ' kg' : item.quantity + ' g'}`;
+        }
       } else {
         status.textContent = "";
       }
@@ -830,19 +813,34 @@ function renderProducts() {
       }
       
       let cartItemsHTML = '';
-      for (const item in cart) {
-        // product.price is per 250g, so per kg multiply by 4
-        const itemTotal = cart[item].qty * cart[item].price * 1;
+      for (const productName in cart) {
+        const item = cart[productName];
+        let itemTotal = 0;
+        let qtyControls = "";
+        
+        if (item.product.type === "combo") {
+          itemTotal = item.quantity * item.product.price;
+          qtyControls = `
+            <button onclick="adjustCartItem('${productName}', -1)">-</button>
+            ${item.quantity} Pack${item.quantity > 1 ? 's' : ''}
+            <button onclick="adjustCartItem('${productName}', 1)">+</button>
+          `;
+        } else {
+          // For weight-based items, price is per 100g
+          itemTotal = (item.quantity / 100) * item.product.price;
+          qtyControls = `
+            <button onclick="adjustCartItem('${productName}', -100)">-</button>
+            ${item.quantity >= 1000 ? (item.quantity/1000).toFixed(2) + ' kg' : item.quantity + ' g'}
+            <button onclick="adjustCartItem('${productName}', 100)">+</button>
+          `;
+        }
+        
         total += itemTotal;
         
         cartItemsHTML += `
           <div class="cart-item">
-            <div class="cart-item-name">${item}</div>
-            <div class="cart-item-qty">
-              <button onclick="adjustCartItem('${item}', -1)">-</button>
-              ${cart[item].qty.toFixed(2)} pack
-              <button onclick="adjustCartItem('${item}', 1)">+</button>
-            </div>
+            <div class="cart-item-name">${productName}</div>
+            <div class="cart-item-qty">${qtyControls}</div>
             <div class="cart-item-price">₹${itemTotal.toFixed(2)}</div>
           </div>
         `;
@@ -851,7 +849,22 @@ function renderProducts() {
       cartItemsContainer.innerHTML = cartItemsHTML;
       document.querySelector(".cart-summary p").textContent = `Total: ₹${total.toFixed(2)}`;
     }
-      function toggleCartPanel() {
+
+    function adjustCartItem(productName, adjustment) {
+      if (!cart[productName]) return;
+      
+      cart[productName].quantity += adjustment;
+      
+      if (cart[productName].quantity <= 0) {
+        delete cart[productName];
+      }
+      
+      updateStatus(productName);
+      updateCartDisplay();
+      updateCartCount();
+    }
+
+    function toggleCartPanel() {
       document.getElementById("cartPanel").classList.toggle("active");
       document.getElementById("overlay").classList.toggle("active");
     }
@@ -861,16 +874,29 @@ function renderProducts() {
         alert("Your cart is empty!");
         return;
       }
-      let msg = "Hello! I'd like to order:\n";
-      for (const item in cart) {
-        msg += `${item}: ${cart[item].qty.toFixed(2)} kg\n`;
+      
+      let msg = "Hello! I'd like to order:\n\n";
+      
+      for (const productName in cart) {
+        const item = cart[productName];
+        if (item.product.type === "combo") {
+          msg += `${productName}: ${item.quantity} Pack${item.quantity > 1 ? 's' : ''}\n`;
+        } else {
+          msg += `${productName}: ${item.quantity >= 1000 ? (item.quantity/1000).toFixed(2) + ' kg' : item.quantity + ' g'}\n`;
+        }
       }
       
       // Calculate total
       let total = 0;
-      for (const item in cart) {
-        total += cart[item].qty * cart[item].price * 4;
+      for (const productName in cart) {
+        const item = cart[productName];
+        if (item.product.type === "combo") {
+          total += item.quantity * item.product.price;
+        } else {
+          total += (item.quantity / 100) * item.product.price;
+        }
       }
+      
       msg += `\nTotal: ₹${total.toFixed(2)}\n\nPlease confirm my order.`;
       
       const encodedMsg = encodeURIComponent(msg);
@@ -878,7 +904,6 @@ function renderProducts() {
     }
 
     document.addEventListener("DOMContentLoaded", () => {
-      showSlides();
       renderProducts();
       
       // Cart panel toggle
@@ -889,9 +914,9 @@ function renderProducts() {
       
       // Clear cart button
       document.querySelector(".clear").addEventListener("click", () => {
-        for (const item in cart) {
-          delete cart[item];
-          updateStatus(item);
+        for (const productName in cart) {
+          delete cart[productName];
+          updateStatus(productName);
         }
         updateCartDisplay();
         updateCartCount();
@@ -900,356 +925,6 @@ function renderProducts() {
       // Order button
       document.querySelector(".order").addEventListener("click", sendOrder);
     });
-
-      function adjustCartItem(productName, adjustment) {
-      if (!cart[productName]) return;
-      
-      cart[productName].qty += adjustment;
-      
-      if (cart[productName].qty <= 0) {
-        delete cart[productName];
-      }
-      
-      updateStatus(productName);
-      updateCartDisplay();
-      updateCartCount();
-    }
-
-function addToCart1(productName) {
-  const grams = parseFloat(document.getElementById(`select-${productName}`).value);
-  const product = products.find(p => p.name === productName);
-  if (!product) return;
-
-  const units = grams / 100; // convert to number of 100g units
-
-  if (!cart[productName]) {
-    cart[productName] = { grams: 0, price: product.price };
-  }
-  cart[productName].grams += grams;
-
-  updateStatus1(productName);
-  updateCartDisplay1();
-  updateCartCount1();
-}
-
-function removeFromCart1(productName) {
-  const grams = parseFloat(document.getElementById(`select-${productName}`).value);
-  if (!cart[productName]) return;
-
-  cart[productName].grams -= grams;
-
-  if (cart[productName].grams <= 0) {
-    delete cart[productName];
-  }
-
-  updateStatus1(productName);
-  updateCartDisplay1();
-  updateCartCount1();
-}
-
-function updateStatus1(productName) {
-  const status = document.getElementById(`status-${productName}`);
-  if (cart[productName]) {
-    const grams = cart[productName].grams;
-    status.textContent = `In cart: ${grams >= 1000 ? (grams / 1000).toFixed(2) + ' kg' : grams + ' g'}`;
-  } else {
-    status.textContent = "";
-  }
-}
-      function updateCartCount1() {
-      const count = Object.keys(cart).length;
-      document.getElementById("cartCount").textContent = count;
-      const cartCount2 = document.getElementById("cartCount2");
-      if (cartCount2) cartCount2.textContent = count;
-    }
-
-function updateCartDisplay1() {
-  const cartItemsContainer = document.getElementById("panel-cart-items");
-  let total = 0;
-
-  if (Object.keys(cart).length === 0) {
-    cartItemsContainer.innerHTML = '<div class="empty-cart">Your cart is empty</div>';
-    document.querySelector(".cart-summary p").textContent = `Total: ₹0.00`;
-    return;
-  }
-
-  let cartItemsHTML = '';
-  for (const item in cart) {
-    const cartItem = cart[item];
-    let itemTotal = 0;
-    let displayQty = "";
-    let qtyControls = "";
-
-    if (cartItem.qty !== undefined) {
-      // Combo pack
-      itemTotal = cartItem.qty * cartItem.price;
-      displayQty = `${cartItem.qty} Pack`;
-      qtyControls = `
-        <button onclick="adjustCartItem1('${item}', -1)">-</button>
-        ${cartItem.qty}
-        <button onclick="adjustCartItem1('${item}', 1)">+</button>
-      `;
-    } else if (cartItem.grams !== undefined) {
-      // By weight
-      itemTotal = (cartItem.grams / 100) * cartItem.price;
-      displayQty = cartItem.grams >= 1000 ? `${(cartItem.grams / 1000).toFixed(2)} kg` : `${cartItem.grams} g`;
-      qtyControls = `
-        <button onclick="adjustCartItem1('${item}', -100)">-</button>
-        ${cartItem.grams >= 1000 ? (cartItem.grams / 1000).toFixed(2) + ' kg' : cartItem.grams + ' g'}
-        <button onclick="adjustCartItem1('${item}', 100)">+</button>
-      `;
-    }
-
-    total += itemTotal;
-
-    cartItemsHTML += `
-      <div class="cart-item">
-        <div class="cart-item-name">${item}</div>
-        <div class="cart-item-qty">${qtyControls}</div>
-        <div class="cart-item-price">₹${itemTotal.toFixed(2)}</div>
-      </div>
-    `;
-  }
-
-  cartItemsContainer.innerHTML = cartItemsHTML;
-  document.querySelector(".cart-summary p").textContent = `Total: ₹${total.toFixed(2)}`;
-}
-  
-function adjustCartItem1(productName, gramAdjustment) {
-  if (!cart[productName]) return;
-
-  cart[productName].grams += gramAdjustment;
-
-  if (cart[productName].grams <= 0) {
-    delete cart[productName];
-  }
-
-  updateStatus1(productName);
-  updateCartDisplay1();
-  updateCartCount1();
-}
-
-    function toggleCartPanel1() {
-      document.getElementById("cartPanel").classList.toggle("active");
-      document.getElementById("overlay").classList.toggle("active");
-    }
-
-    document.addEventListener("DOMContentLoaded", () => {
-      showSlides1();
-      renderProducts1();
-      
-      // Cart panel toggle
-      document.getElementById("cartIcon").addEventListener("click", toggleCartPanel1);
-      document.getElementById("cartIcon2").addEventListener("click", toggleCartPanel1);
-      document.getElementById("closeCart").addEventListener("click", toggleCartPanel1);
-      document.getElementById("overlay").addEventListener("click", toggleCartPanel1);
-            
-      // Order button
-      document.querySelector(".order").addEventListener("click", sendOrder);
-    });
-
-  function addToCart3(productName) {
-  const grams = parseFloat(document.getElementById(`select-${productName}`).value);
-  const product = products3.find(p => p.name === productName);
-  if (!product) return;
-
-  const units = grams / 100; // convert to number of 100g units
-
-  if (!cart[productName]) {
-    cart[productName] = { grams: 0, price: product.price };
-  }
-  cart[productName].grams += grams;
-
-  updateStatus3(productName);
-  updateCartDisplay3();
-  updateCartCount3();
-}
-
-function removeFromCart3(productName) {
-  const grams = parseFloat(document.getElementById(`select-${productName}`).value);
-  if (!cart[productName]) return;
-
-  cart[productName].grams -= grams;
-
-  if (cart[productName].grams <= 0) {
-    delete cart[productName];
-  }
-
-  updateStatus3(productName);
-  updateCartDisplay3();
-  updateCartCount3();
-}
-
-function updateStatus3(productName) {
-  const status = document.getElementById(`status-${productName}`);
-  if (cart[productName]) {
-    const grams = cart[productName].grams;
-    status.textContent = `In cart: ${grams >= 1000 ? (grams / 1000).toFixed(2) + ' kg' : grams + ' g'}`;
-  } else {
-    status.textContent = "";
-  }
-}
-      function updateCartCount3() {
-      const count = Object.keys(cart).length;
-      document.getElementById("cartCount").textContent = count;
-      const cartCount2 = document.getElementById("cartCount2");
-      if (cartCount2) cartCount2.textContent = count;
-    }
-
-function updateCartDisplay3() {
-  const cartItemsContainer = document.getElementById("panel-cart-items");
-  let total = 0;
-
-  if (Object.keys(cart).length === 0) {
-    cartItemsContainer.innerHTML = '<div class="empty-cart">Your cart is empty</div>';
-    document.querySelector(".cart-summary p").textContent = `Total: ₹0.00`;
-    return;
-  }
-
-  let cartItemsHTML = '';
-  for (const item in cart) {
-    const cartItem = cart[item];
-    let itemTotal = 0;
-    let displayQty = "";
-    let qtyControls = "";
-
-    if (cartItem.qty !== undefined) {
-      // Combo pack
-      itemTotal = cartItem.qty * cartItem.price;
-      displayQty = `${cartItem.qty} Pack`;
-      qtyControls = `
-        <button onclick="adjustCartItem3('${item}', -1)">-</button>
-        ${cartItem.qty}
-        <button onclick="adjustCartItem3('${item}', 1)">+</button>
-      `;
-    } else if (cartItem.grams !== undefined) {
-      // By weight
-      itemTotal = (cartItem.grams / 100) * cartItem.price;
-      displayQty = cartItem.grams >= 1000 ? `${(cartItem.grams / 1000).toFixed(2)} kg` : `${cartItem.grams} g`;
-      qtyControls = `
-        <button onclick="adjustCartItem3('${item}', -250)">-</button>
-        ${cartItem.grams >= 1000 ? (cartItem.grams / 1000).toFixed(2) + ' kg' : cartItem.grams + ' g'}
-        <button onclick="adjustCartItem3('${item}', 250)">+</button>
-      `;
-    }
-
-    total += itemTotal;
-
-    cartItemsHTML += `
-      <div class="cart-item">
-        <div class="cart-item-name">${item}</div>
-        <div class="cart-item-qty">${qtyControls}</div>
-        <div class="cart-item-price">₹${itemTotal.toFixed(2)}</div>
-      </div>
-    `;
-  }
-
-  cartItemsContainer.innerHTML = cartItemsHTML;
-  document.querySelector(".cart-summary p").textContent = `Total: ₹${total.toFixed(2)}`;
-}
-  
-function adjustCartItem3(productName, gramAdjustment) {
-  if (!cart[productName]) return;
-
-  cart[productName].grams += gramAdjustment;
-
-  if (cart[productName].grams <= 0) {
-    delete cart[productName];
-  }
-
-  updateStatus3(productName);
-  updateCartDisplay3();
-  updateCartCount3();
-}
-
-    function toggleCartPanel3() {
-      document.getElementById("cartPanel").classList.toggle("active");
-      document.getElementById("overlay").classList.toggle("active");
-    }
-
-    document.addEventListener("DOMContentLoaded", () => {
-      showSlides3();
-      renderProducts3();
-      
-      // Cart panel toggle
-      document.getElementById("cartIcon").addEventListener("click", toggleCartPanel3);
-      document.getElementById("cartIcon2").addEventListener("click", toggleCartPanel3);
-      document.getElementById("closeCart").addEventListener("click", toggleCartPanel3);
-      document.getElementById("overlay").addEventListener("click", toggleCartPanel3);
-            
-      // Order button
-      document.querySelector(".order").addEventListener("click", sendOrder);
-    });
-    function updateCartDisplayUnified() {
-  const cartItemsContainer = document.getElementById("panel-cart-items");
-  let total = 0;
-
-  if (Object.keys(cart).length === 0) {
-    cartItemsContainer.innerHTML = '<div class="empty-cart">Your cart is empty</div>';
-    document.querySelector(".cart-summary p").textContent = `Total: ₹0.00`;
-    return;
-  }
-
-  let cartItemsHTML = '';
-  for (const item in cart) {
-    const cartItem = cart[item];
-    let itemTotal = 0;
-    let qtyControls = "";
-
-    if (cartItem.qty !== undefined) {
-      // Combo pack
-      itemTotal = cartItem.qty * cartItem.price;
-      qtyControls = `
-        <button onclick="adjustCartItemUnified('${item}', -1)">-</button>
-        ${cartItem.qty} Pack
-        <button onclick="adjustCartItemUnified('${item}', 1)">+</button>
-      `;
-    } else if (cartItem.grams !== undefined) {
-      // By weight
-      itemTotal = (cartItem.grams / 100) * cartItem.price;
-      qtyControls = `
-        <button onclick="adjustCartItemUnified('${item}', -100)">-</button>
-        ${cartItem.grams >= 1000 ? (cartItem.grams / 1000).toFixed(2) + ' kg' : cartItem.grams + ' g'}
-        <button onclick="adjustCartItemUnified('${item}', 100)">+</button>
-      `;
-    }
-
-    total += itemTotal;
-
-    cartItemsHTML += `
-      <div class="cart-item">
-        <div class="cart-item-name">${item}</div>
-        <div class="cart-item-qty">${qtyControls}</div>
-        <div class="cart-item-price">₹${itemTotal.toFixed(2)}</div>
-      </div>
-    `;
-  }
-
-  cartItemsContainer.innerHTML = cartItemsHTML;
-  document.querySelector(".cart-summary p").textContent = `Total: ₹${total.toFixed(2)}`;
-}
-
-// Unified adjust function
-function adjustCartItemUnified(productName, adjustment) {
-  if (!cart[productName]) return;
-
-  if (cart[productName].qty !== undefined) {
-    cart[productName].qty += adjustment;
-    if (cart[productName].qty <= 0) {
-      delete cart[productName];
-    }
-  } else if (cart[productName].grams !== undefined) {
-    cart[productName].grams += adjustment;
-    if (cart[productName].grams <= 0) {
-      delete cart[productName];
-    }
-  }
-
-  // Update status if needed
-  // updateStatus(productName); // If you have a status display per product
-  updateCartDisplayUnified();
-  // updateCartCount(); // If you have a cart count display
-}
   </script>
 </body>
 </html>
