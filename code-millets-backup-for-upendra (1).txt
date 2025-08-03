@@ -52,7 +52,7 @@
   <!-- Header -->
   <header class="flex items-center justify-between p-4 bg-white shadow-md">
     <div class="flex items-center">
-      <!-- Removed: <img src="logo.png" alt="Millet Bites Logo" class="h-10 mr-2"> -->
+      <div class="h-10 w-10 bg-gray-300 rounded mr-2"></div>
       <h1 class="text-2xl font-bold">Millet Bites</h1>
     </div>
     <nav class="space-x-4">
@@ -67,14 +67,12 @@
   <!-- Scrollbar for Offers -->
   <marquee class="bg-yellow-200 py-2 text-center font-semibold text-red-700">Special Offer: Buy 2 Combo Packs & Get 1 Free! | Free Shipping All Over India</marquee>
 
-  <!-- Swiper Images (Removed missing/misnamed images) -->
-  <!-- Removed: 
-  <div class="overflow-x-auto whitespace-nowrap py-4 bg-white">
-    <img src="offer1.jpg" class="inline-block h-48 mr-4" />
-    <img src="offer2.jpg" class="inline-block h-48 mr-4" />
-    <img src="offer3.jpg" class="inline-block h-48" />
+  <!-- Placeholder Swiper Images -->
+  <div class="overflow-x-auto whitespace-nowrap py-4 bg-white text-center text-gray-500 text-sm">
+    <div class="inline-block w-64 h-48 bg-gray-200 mr-4 flex items-center justify-center">Offer Image 1</div>
+    <div class="inline-block w-64 h-48 bg-gray-200 mr-4 flex items-center justify-center">Offer Image 2</div>
+    <div class="inline-block w-64 h-48 bg-gray-200 flex items-center justify-center">Offer Image 3</div>
   </div>
-  -->
 
   <!-- Home Section -->
   <section id="home" class="text-center py-8">
@@ -94,7 +92,7 @@
             for (const [name, price] of Object.entries(items)) {
               container.innerHTML += `
                 <div class="bg-white p-4 shadow rounded">
-                  <!-- Removed: <img src="${name.replaceAll(' ', '').toLowerCase()}.jpg" alt="${name}" class="w-full h-32 object-cover mb-2"> -->
+                  <div class="w-full h-32 bg-gray-300 mb-2 flex items-center justify-center text-sm text-gray-600">${name}</div>
                   <h4 class="font-bold text-lg">${name}</h4>
                   <p class="text-sm">Price: ₹${price}</p>
                   <div class="flex gap-2 mt-2">
@@ -117,28 +115,4 @@
 
   <!-- About Us -->
   <section id="about" class="p-6 mt-8 bg-white">
-    <h3 class="text-xl font-bold mb-2">About Us</h3>
-    <p>Millet Bites brings healthy, millet-based snacks to your doorstep. Our mission is to make traditional Indian grains accessible, tasty, and affordable to all.</p>
-  </section>
-
-  <!-- Contact Us -->
-  <section id="contact" class="p-6 bg-gray-50">
-    <h3 class="text-xl font-bold mb-2">Contact Us</h3>
-    <p>Call us: <a href="tel:+919949840365" class="text-blue-600">9949840365</a>, <a href="tel:+919052967624" class="text-blue-600">9052967624</a></p>
-    <p>Instagram: <a href="https://instagram.com/vizagmilletbites" class="text-blue-600">@vizagmilletbites</a></p>
-  </section>
-
-  <!-- Customer Reviews -->
-  <section id="reviews" class="p-6 bg-white">
-    <h3 class="text-xl font-bold mb-2">Customer Reviews</h3>
-    <p>⭐⭐⭐⭐⭐ "Loved the combo pack, super tasty and guilt-free!"</p>
-    <p>⭐⭐⭐⭐ "Good snacks, quick delivery."</p>
-    <p>⭐⭐⭐⭐⭐ "Healthy and crunchy, my kids loved them!"</p>
-  </section>
-
-  <footer class="text-center p-4 bg-gray-200 mt-6">
-    © 2025 Millet Bites. All rights reserved.
-  </footer>
-</body>
-
-</html>
+    <h3 class="text-xl font-bold
