@@ -1,430 +1,129 @@
+html_code = """
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=1024, user-scalable=yes">
-  <title>Millet Bites New Version</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Millet Bites</title>
   <style>
-    /* ...[All original CSS remains unchanged]... */
+    body { font-family: Arial, sans-serif; margin: 0; padding: 0; background: #fff8f0; color: #333; }
+    header { display: flex; justify-content: space-between; align-items: center; padding: 10px 20px; background-color: #f5e1a4; }
+    header img { height: 40px; }
+    header .site-name { font-size: 24px; font-weight: bold; margin-left: 10px; color: #6a4e2f; }
+    nav ul { display: flex; list-style: none; margin: 0; padding: 0; }
+    nav ul li { margin: 0 10px; }
+    nav ul li a { text-decoration: none; color: #6a4e2f; font-weight: bold; }
+    .offers-bar { background: #ffcc00; padding: 8px; text-align: center; font-weight: bold; animation: scroll-left 10s linear infinite; }
+    @keyframes scroll-left {
+      0% { transform: translateX(100%); }
+      100% { transform: translateX(-100%); }
+    }
+    .slider { display: flex; overflow-x: auto; scroll-snap-type: x mandatory; }
+    .slider img { height: 200px; scroll-snap-align: start; margin-right: 10px; border-radius: 8px; }
+    .content { padding: 20px; text-align: center; }
+    .content h1 { font-size: 28px; margin-bottom: 10px; }
+    .tagline { font-size: 20px; margin-bottom: 20px; color: #6a4e2f; }
+    .menu { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 20px; padding: 20px; }
+    .item { background: #fff; border-radius: 8px; padding: 10px; box-shadow: 0 0 5px rgba(0,0,0,0.1); }
+    .item img { width: 100%; height: 150px; object-fit: cover; border-radius: 6px; }
+    .item h3 { font-size: 18px; margin: 10px 0 5px; }
+    .item p { margin: 0; font-size: 14px; }
+    .cart-buttons { display: flex; justify-content: space-between; margin-top: 10px; }
+    .cart-buttons button { padding: 5px 10px; background: #6a4e2f; color: #fff; border: none; border-radius: 4px; cursor: pointer; }
+    footer { text-align: center; padding: 20px; background: #f5e1a4; margin-top: 40px; }
   </style>
 </head>
 <body>
-  <div class="overlay" id="overlay"></div>
-  <div class="cart-panel" id="cartPanel">
-    <div class="cart-panel-header">
-      <h3>Your Cart</h3>
-      <button class="close-cart" id="closeCart">&times;</button>
-    </div>
-    <div class="cart-items" id="panel-cart-items">
-      <div class="empty-cart">Your cart is empty</div>
-    </div>
-    <div class="cart-summary">
-      <p>Total: ₹0.00</p>
-    </div>
+
+<header>
+  <div style="display: flex; align-items: center;">
+    <img src="logo.png" alt="Millet Bites Logo">
+    <span class="site-name">Millet Bites</span>
+  </div>
+  <nav>
+    <ul>
+      <li><a href="#home">Home</a></li>
+      <li><a href="#about">About Us</a></li>
+      <li><a href="#contact">Contact</a></li>
+      <li><a href="#reviews">Reviews</a></li>
+      <li><a href="#cart">Cart</a></li>
+    </ul>
+  </nav>
+</header>
+
+<div class="offers-bar">🎉 Special Offer: Get 10% Off on Combo Packs! 🎉</div>
+
+<div class="slider">
+  <img src="offer1.jpg" alt="Offer 1">
+  <img src="offer2.jpg" alt="Offer 2">
+  <img src="offer3.jpg" alt="Offer 3">
+</div>
+
+<div class="content" id="home">
+  <h1>Welcome to Millet Bites</h1>
+  <div class="tagline">Healthy • Tasty • Affordable</div>
+</div>
+
+<div class="menu">
+  <!-- Sample items, repeat for 20 items -->
+  <div class="item">
+    <img src="ragi_chips.jpg" alt="Ragi Chips">
+    <h3>Ragi Chips Combo</h3>
+    <p>Available: 1 pack, 2 packs, 3 packs</p>
     <div class="cart-buttons">
-      <button class="order">Order on WhatsApp</button>
-      <button class="clear">Clear Cart</button>
+      <button onclick="addToCart('Ragi Chips Combo')">Add to Cart</button>
+      <button onclick="removeFromCart('Ragi Chips Combo')">-</button>
     </div>
   </div>
-
-  <header>
-    <h1>Millet Bites</h1>
-    <div class="header-right">
-      <nav>
-        <a href="#home">Home</a>
-        <a href="#menu">Menu</a>
-        <a href="#about">About Us</a>
-        <a href="#contact">Contact</a>
-        <a href="#reviews">Reviews</a>
-      </nav>
-      <div class="cart-icon" id="cartIcon">
-        🛒
-        <span class="cart-count" id="cartCount">0</span>
-      </div>
-    </div>
-  </header>
-  <div class="scroll"><span>🎉 Special Offer: Get 10% OFF on all orders above ₹500! Limited time only! 🎉</span></div>
-<section id="home" class="hero">
-  <div class="slideshow-container">
-    <a href="#menu">
-    <img class="slides" src="b1.jpeg" alt="Combo 1" />
-    </a>
-    <a href="#menu">
-    <img class="slides" src="b2.jpeg" alt="Combo 2" />
-    </a>
-    <a href="#menu">
-    <img class="slides" src="b3.jpeg" alt="Combo 3" />
-    </a> 
-    <a href="#menu">
-    <img class="slides" src="b4.jpeg" alt="Combo 4" />
-    </a>
-    <div style="text-align: center; margin-top: 10px;">
-      <span class="dot" data-index="1"></span>
-      <span class="dot" data-index="2"></span>
-      <span class="dot" data-index="3"></span>
-      <span class="dot" data-index="4"></span>
+  <div class="item">
+    <img src="foxtail_laddu.jpg" alt="Foxtail Laddu">
+    <h3>Foxtail Laddu 100g</h3>
+    <p>₹60</p>
+    <div class="cart-buttons">
+      <button onclick="addToCart('Foxtail Laddu 100g')">Add to Cart</button>
+      <button onclick="removeFromCart('Foxtail Laddu 100g')">-</button>
     </div>
   </div>
-  <div class="slide-text">
-    <h4>Welcome to Millet Bites – Experience delicious flavour with our healthy, tasty, and affordable millet-based snacks!</h4>
-    <p>Healthy | Tasty | Affordable</p>
-  </div>
-</section>
+  <!-- Repeat for more products -->
+</div>
 
-  <section id="menu" class="menu">
-    <h2>Our Menu</h2> 
-    <div class="cart-icon" id="cartIcon2" style="text-align: right;font-weight: bold; padding: 10px 10px;">
-        🛒Cart
-        <span class="cart-count" id="cartCount2">0</span>
-    </div>
-    <div class="product-grid" id="product-grid"></div>
-  </section>
+<div id="about" class="content">
+  <h2>About Us</h2>
+  <p>Millet Bites brings you nutritious and delicious snacks made from Ragi, Jowar, and Foxtail. Sourced locally and crafted with love in Vizag, we ensure healthy snacking for everyone.</p>
+</div>
 
-  <section id="about" class="about-contact">
-    <h2>About Us</h2>
-    <p>We're a Vizag-based brand bringing healthy snacking to your doorstep.</p>
-  </section>
+<div id="contact" class="content">
+  <h2>Contact Us</h2>
+  <p>Email: contact@vizagmilletbites.com</p>
+  <p>Phone: +91 9949840365 / 9052967624</p>
+  <p>Instagram: <a href="https://www.instagram.com/vizagmilletbites">@vizagmilletbites</a></p>
+</div>
 
-  <section id="contact" class="about-contact" style="background: #e3f2fd;">
-    <h2>Contact Us</h2>
-    <p>Reach us on:</p>
-    <div class="contact-icons">
-      <div style="display: flex; justify-content: center; gap: 20px;">
-        <a href="https://wa.me/919949840365" target="_blank">
-          <img src="https://cdn-icons-png.flaticon.com/512/733/733585.png" alt="WhatsApp" style="height: 30px; width: 30px;">
-        </a>
-        <a href="https://instagram.com/vizagMilletBites" target="_blank">
-          <img src="https://cdn-icons-png.flaticon.com/512/174/174855.png" alt="Instagram" style="height: 30px; width: 30px;">
-        </a>
-        <a href="tel:+919949840365" target="_blank">
-          <img src="https://cdn-icons-png.flaticon.com/512/724/724664.png" alt="Phone" style="height: 30px; width: 30px;">
-        </a>
-      </div>
-    </div>
-  </section>
+<div id="reviews" class="content">
+  <h2>Customer Reviews</h2>
+  <p>⭐⭐⭐⭐⭐ "Delicious and healthy!" - Asha</p>
+  <p>⭐⭐⭐⭐ "Loved the Foxtail Laddus!" - Ravi</p>
+</div>
 
-  <section id="reviews" class="about-contact" style="background: #fff8e1;">
-    <h2>Customer Reviews</h2>
-    <p>“Absolutely loved the Ragi Mixture—crunchy and wholesome!”</p>
-    <p>“Fast delivery, fresh taste. Will order again.”</p>
-  </section>
-
-  <footer>
-    &copy; 2025 Millet Bites. All rights reserved.
-  </footer>
-  <a href="https://wa.me/919949840365" class="whatsapp-float" target="_blank">💬</a>
+<footer>
+  &copy; 2025 Millet Bites. All Rights Reserved.
+</footer>
 
 <script>
-    // --- Unified JS for all cart/product logic ---
-    let slideIndex = 1;
-    let slideTimer;
-
-    function showSlides(n) {
-      const slides = document.querySelectorAll(".slides");
-      const dots = document.querySelectorAll(".dot");
-
-      if (n > slides.length) slideIndex = 1;
-      if (n < 1) slideIndex = slides.length;
-
-      slides.forEach(slide => slide.style.display = "none");
-      dots.forEach(dot => dot.classList.remove("active-dot"));
-
-      slides[slideIndex - 1].style.display = "block";
-      dots[slideIndex - 1].classList.add("active-dot");
+  const cart = {};
+  function addToCart(item) {
+    cart[item] = (cart[item] || 0) + 1;
+    alert(item + " added to cart. Quantity: " + cart[item]);
+  }
+  function removeFromCart(item) {
+    if (cart[item]) {
+      cart[item]--;
+      if (cart[item] === 0) delete cart[item];
+      alert(item + " removed. Quantity: " + (cart[item] || 0));
     }
-
-    function nextSlide() {
-      slideIndex++;
-      showSlides(slideIndex);
-    }
-
-    function currentSlide(n) {
-      clearTimeout(slideTimer);
-      slideIndex = n;
-      showSlides(slideIndex);
-      autoSlides();
-    }
-
-    function autoSlides() {
-      slideTimer = setTimeout(() => {
-        nextSlide();
-        autoSlides();
-      }, 5000);
-    }
-
-    // --- Product data ---
-    const products = [
-      { name: "combo 1", image: "Hot Gavvalu.jpeg", price: 0 },
-      { name: "combo 2", image: "Hot Gavvalu.jpeg", price: 299 },
-      { name: "Combo 3", image: "Hot Gavvalu.jpeg", price: 399 },
-      { name: "Combo 4", image: "Hot Gavvalu.jpeg", price: 599 },
-      { name: "Ragi Mixture", image: "Ragi Mixture.jpeg", price: 60 },
-      { name: "Ragi Chegodilu", image: "Ragi Chegodilu.jpeg", price: 60 },
-      { name: "Ragi Murukkulu", image: "Ragi Murukkulu.jpeg", price: 60 },
-      { name: "Jowar Mixture", image: "Jowar Mixture.jpeg", price: 60 },
-      { name: "Jowar Murukkulu", image: "Jowar Murukkulu.jpeg", price: 60 },
-      { name: "Jowar Ribbon Pakodi", image: "Jowar Ribbon Pakodi.jpeg", price: 60 },
-      { name: "Foxtail Sev", image: "Foxtail Sev.jpeg", price: 60 },
-      { name: "Arikalu Jantikalu", image: "Arikalu Jantikalu.jpeg", price: 60 },
-      { name: "Samalu Boondi", image: "Samalu Boondi.jpeg", price: 60 },
-      { name: "Dry Fruit Mixture", image: "Dry Fruit Mixture.jpeg", price: 180 }
-    ];
-    const products3 = [
-      { name: "Dry Fruit Laddu", image: "Dry Fruit Laddu.jpeg", price: 300 },
-      { name: "Cashew Bar", image: "Cashew Bar.jpeg", price: 200 },
-      { name: "Panchadara Gavvalu", image: "Panchadara Gavvalu.jpg", price: 100 },
-      { name: "Bellam Gavvalu", image: "Bellam Gavvalu.jpeg", price: 100 },
-      { name: "Hot Gavvalu", image: "Hot Gavvalu.jpeg", price: 100 }
-    ];
-    const cart = {};
-
-    // --- Rendering Products ---
-    function renderProducts() {
-      const grid = document.getElementById("product-grid");
-      grid.innerHTML = ''; // clear existing content
-
-      // Combo packs
-      products.filter(product => product.name.toLowerCase().includes("combo")).forEach(product => {
-        const div = document.createElement("div");
-        div.className = "product-card";
-        div.innerHTML = `
-          <div class="discount-badge">20% OFF</div>
-          <img src="${product.image}" alt="${product.name}" />
-          <h4>${product.name}</h4>
-          <p>₹${product.price} - pack</p>
-          <div class="quantity-controls">
-            <button onclick="updateCart('${product.name}', 'pack', -1)">-</button>
-            <select id="select-${product.name}">
-              ${[1, 2, 3, 5].map(p => `<option value="${p}">${p} Pack${p > 1 ? 's' : ''}</option>`).join('')}
-            </select>
-            <button onclick="updateCart('${product.name}', 'pack', 1)">+</button>
-          </div>
-          <div class="cart-status" id="status-${product.name}"></div>
-        `;
-        grid.appendChild(div);
-      });
-
-      // Non-combo snacks
-      products.filter(product => !product.name.toLowerCase().includes("combo")).forEach(product => {
-        const div = document.createElement("div");
-        div.className = "product-card";
-        div.innerHTML = `
-          <div class="discount-badge">20% OFF</div>
-          <img src="${product.image}" alt="${product.name}" />
-          <h4>${product.name}</h4>
-          <p>₹${product.price} - 100g</p>
-          <div class="quantity-controls">
-            <button onclick="updateCart('${product.name}', 'grams', -100)">-</button>
-            <select id="select-${product.name}">
-              ${[
-                { value: 100, label: "100g" },
-                { value: 250, label: "250g" },
-                { value: 500, label: "500g" },
-                { value: 1000, label: "1KG" },
-                { value: 2000, label: "2KG" },
-                { value: 5000, label: "5KG" }
-              ].map(opt => `<option value="${opt.value}">${opt.label}</option>`).join('')}
-            </select>
-            <button onclick="updateCart('${product.name}', 'grams', 100)">+</button>
-          </div>
-          <div class="cart-status" id="status-${product.name}"></div>
-        `;
-        grid.appendChild(div);
-      });
-
-      products3.forEach(product => {
-        const div = document.createElement("div");
-        div.className = "product-card";
-        div.innerHTML = `
-          <div class="discount-badge">20% OFF</div>
-          <img src="${product.image}" alt="${product.name}" />
-          <h4>${product.name}</h4>
-          <p>₹${product.price} - 100g</p>
-          <div class="quantity-controls">
-            <button onclick="updateCart('${product.name}', 'grams', -250)">-</button>
-            <select id="select-${product.name}">
-              ${[
-                { value: 250, label: "250g" },
-                { value: 500, label: "500g" },
-                { value: 1000, label: "1KG" },
-                { value: 2000, label: "2KG" },
-                { value: 5000, label: "5KG" }
-              ].map(opt => `<option value="${opt.value}">${opt.label}</option>`).join('')}
-            </select>
-            <button onclick="updateCart('${product.name}', 'grams', 250)">+</button>
-          </div>
-          <div class="cart-status" id="status-${product.name}"></div>
-        `;
-        grid.appendChild(div);
-      });
-    }
-
-    function updateCart(productName, type, amount) {
-      const select = document.getElementById(`select-${productName}`);
-      let value = select ? parseInt(select.value) : 1;
-      let product = products.find(p => p.name === productName) || products3.find(p => p.name === productName);
-
-      if (type === "pack") {
-        if (!cart[productName]) cart[productName] = { qty: 0, price: product.price };
-        cart[productName].qty += amount * value;
-        if (cart[productName].qty <= 0) delete cart[productName];
-        updateStatus(productName, "pack");
-      } else if (type === "grams") {
-        if (!cart[productName]) cart[productName] = { grams: 0, price: product.price };
-        cart[productName].grams += amount * value;
-        if (cart[productName].grams <= 0) delete cart[productName];
-        updateStatus(productName, "grams");
-      }
-      updateCartDisplay();
-      updateCartCount();
-    }
-
-    function updateStatus(productName, type) {
-      const status = document.getElementById(`status-${productName}`);
-      if (cart[productName]) {
-        if (type === "pack" && cart[productName].qty) {
-          status.textContent = `In cart: ${cart[productName].qty} Pack`;
-        } else if (type === "grams" && cart[productName].grams) {
-          status.textContent = `In cart: ${cart[productName].grams >= 1000 ? (cart[productName].grams / 1000).toFixed(2) + ' kg' : cart[productName].grams + ' g'}`;
-        }
-      } else {
-        status.textContent = "";
-      }
-    }
-
-    function updateCartCount() {
-      const count = Object.keys(cart).length;
-      document.getElementById("cartCount").textContent = count;
-      const cartCount2 = document.getElementById("cartCount2");
-      if (cartCount2) cartCount2.textContent = count;
-    }
-
-    function updateCartDisplay() {
-      const cartItemsContainer = document.getElementById("panel-cart-items");
-      let total = 0;
-
-      if (Object.keys(cart).length === 0) {
-        cartItemsContainer.innerHTML = '<div class="empty-cart">Your cart is empty</div>';
-        document.querySelector(".cart-summary p").textContent = `Total: ₹0.00`;
-        return;
-      }
-
-      let cartItemsHTML = '';
-      for (const item in cart) {
-        const cartItem = cart[item];
-        let itemTotal = 0;
-        let qtyControls = "";
-
-        if (cartItem.qty !== undefined) {
-          itemTotal = cartItem.qty * cartItem.price;
-          qtyControls = `
-            <button onclick="adjustCartItem('${item}', -1, 'pack')">-</button>
-            ${cartItem.qty} Pack
-            <button onclick="adjustCartItem('${item}', 1, 'pack')">+</button>
-          `;
-        } else if (cartItem.grams !== undefined) {
-          itemTotal = (cartItem.grams / 100) * cartItem.price;
-          qtyControls = `
-            <button onclick="adjustCartItem('${item}', -100, 'grams')">-</button>
-            ${cartItem.grams >= 1000 ? (cartItem.grams / 1000).toFixed(2) + ' kg' : cartItem.grams + ' g'}
-            <button onclick="adjustCartItem('${item}', 100, 'grams')">+</button>
-          `;
-        }
-        total += itemTotal;
-
-        cartItemsHTML += `
-          <div class="cart-item">
-            <div class="cart-item-name">${item}</div>
-            <div class="cart-item-qty">${qtyControls}</div>
-            <div class="cart-item-price">₹${itemTotal.toFixed(2)}</div>
-          </div>
-        `;
-      }
-      cartItemsContainer.innerHTML = cartItemsHTML;
-      document.querySelector(".cart-summary p").textContent = `Total: ₹${total.toFixed(2)}`;
-    }
-
-    function adjustCartItem(productName, adjustment, type) {
-      if (!cart[productName]) return;
-
-      if (type === "pack") {
-        cart[productName].qty += adjustment;
-        if (cart[productName].qty <= 0) delete cart[productName];
-        updateStatus(productName, "pack");
-      } else if (type === "grams") {
-        cart[productName].grams += adjustment;
-        if (cart[productName].grams <= 0) delete cart[productName];
-        updateStatus(productName, "grams");
-      }
-      updateCartDisplay();
-      updateCartCount();
-    }
-
-    function toggleCartPanel() {
-      document.getElementById("cartPanel").classList.toggle("active");
-      document.getElementById("overlay").classList.toggle("active");
-    }
-
-    function sendOrder() {
-      if (Object.keys(cart).length === 0) {
-        alert("Your cart is empty!");
-        return;
-      }
-      let msg = "Hello! I'd like to order:\n";
-      for (const item in cart) {
-        if (cart[item].qty !== undefined) {
-          msg += `${item}: ${cart[item].qty} Pack\n`;
-        } else if (cart[item].grams !== undefined) {
-          msg += `${item}: ${cart[item].grams >= 1000 ? (cart[item].grams / 1000).toFixed(2) + ' kg' : cart[item].grams + ' g'}\n`;
-        }
-      }
-      let total = 0;
-      for (const item in cart) {
-        if (cart[item].qty !== undefined) {
-          total += cart[item].qty * cart[item].price;
-        } else if (cart[item].grams !== undefined) {
-          total += (cart[item].grams / 100) * cart[item].price;
-        }
-      }
-      msg += `\nTotal: ₹${total.toFixed(2)}\n\nPlease confirm my order.`;
-      const encodedMsg = encodeURIComponent(msg);
-      window.open(`https://wa.me/919949840365?text=${encodedMsg}`, "_blank");
-    }
-
-    document.addEventListener("DOMContentLoaded", () => {
-      showSlides(slideIndex);
-      autoSlides();
-      renderProducts();
-
-      // Cart panel toggle
-      document.getElementById("cartIcon").addEventListener("click", toggleCartPanel);
-      document.getElementById("cartIcon2").addEventListener("click", toggleCartPanel);
-      document.getElementById("closeCart").addEventListener("click", toggleCartPanel);
-      document.getElementById("overlay").addEventListener("click", toggleCartPanel);
-
-      // Clear cart button
-      document.querySelector(".clear").addEventListener("click", () => {
-        for (const item in cart) {
-          delete cart[item];
-          const status = document.getElementById(`status-${item}`);
-          if (status) status.textContent = "";
-        }
-        updateCartDisplay();
-        updateCartCount();
-      });
-
-      // Order button
-      document.querySelector(".order").addEventListener("click", sendOrder);
-
-      // Slideshow dots
-      const dots = document.querySelectorAll(".dot");
-      dots.forEach(dot => {
-        dot.addEventListener("click", () => {
-          const index = parseInt(dot.getAttribute("data-index"));
-          currentSlide(index);
-        });
-      });
-    });
+  }
 </script>
+
 </body>
 </html>
+"""
