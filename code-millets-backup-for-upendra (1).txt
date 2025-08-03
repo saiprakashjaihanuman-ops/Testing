@@ -1,5 +1,144 @@
-<img src="logo.png" alt="Millet Bites Logo" class="h-10 mr-2">
-<img src="offer1.jpg" ...>
-<img src="offer2.jpg" ...>
-<img src="offer3.jpg" ...>
-<img src="${name.replaceAll(' ', '').toLowerCase()}.jpg" ...>
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Millet Bites</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <script>
+    let cart = {};
+    function updateCart(name, price, quantity) {
+      cart[name] = (cart[name] || 0) + quantity;
+      if (cart[name] <= 0) delete cart[name];
+      renderCart();
+    }
+
+    function renderCart() {
+      const cartEl = document.getElementById('cart-values');
+      cartEl.innerHTML = '';
+      let total = 0;
+      for (const item in cart) {
+        const quantity = cart[item];
+        const price = items[item];
+        total += quantity * price;
+        cartEl.innerHTML += `<li>${item} x ${quantity} = ₹${quantity * price}</li>`;
+      }
+      if (total === 0) cartEl.innerHTML = '<li>Cart is empty</li>';
+      else cartEl.innerHTML += `<li><strong>Total: ₹${total}</strong></li>`;
+    }
+
+    const items = {
+      'Combo Pack 1': 200,
+      'Combo Pack 2': 350,
+      'Combo Pack 3': 499,
+      'Combo Pack 4': 599,
+      'Ragi Chips 100g': 60,
+      'Jowar Sticks 100g': 60,
+      'Foxtail Puffs 100g': 60,
+      'Multigrain Mix 100g': 60,
+      'Spicy Mix 100g': 60,
+      'Sweet Mix 100g': 60,
+      'Protein Bites 250g': 120,
+      'Fiber Snack 250g': 140,
+      'Crunchy Delight 250g': 150,
+      'Power Snack 250g': 160,
+      'Energy Bites 250g': 180
+    };
+  </script>
+</head>
+
+<body class="bg-gray-100 text-gray-800">
+  <!-- Header -->
+  <header class="flex items-center justify-between p-4 bg-white shadow-md">
+    <div class="flex items-center">
+      <!-- Removed: <img src="logo.png" alt="Millet Bites Logo" class="h-10 mr-2"> -->
+      <h1 class="text-2xl font-bold">Millet Bites</h1>
+    </div>
+    <nav class="space-x-4">
+      <a href="#home" class="hover:text-blue-600">Home</a>
+      <a href="#about" class="hover:text-blue-600">About Us</a>
+      <a href="#contact" class="hover:text-blue-600">Contact</a>
+      <a href="#reviews" class="hover:text-blue-600">Reviews</a>
+      <a href="#cart" class="hover:text-blue-600">Cart</a>
+    </nav>
+  </header>
+
+  <!-- Scrollbar for Offers -->
+  <marquee class="bg-yellow-200 py-2 text-center font-semibold text-red-700">Special Offer: Buy 2 Combo Packs & Get 1 Free! | Free Shipping All Over India</marquee>
+
+  <!-- Swiper Images (Removed missing/misnamed images) -->
+  <!-- Removed: 
+  <div class="overflow-x-auto whitespace-nowrap py-4 bg-white">
+    <img src="offer1.jpg" class="inline-block h-48 mr-4" />
+    <img src="offer2.jpg" class="inline-block h-48 mr-4" />
+    <img src="offer3.jpg" class="inline-block h-48" />
+  </div>
+  -->
+
+  <!-- Home Section -->
+  <section id="home" class="text-center py-8">
+    <h2 class="text-3xl font-bold">Welcome to Millet Bites</h2>
+    <p class="mt-2 text-lg">Healthy • Tasty • Affordable</p>
+  </section>
+
+  <!-- Menu + Cart -->
+  <section class="flex flex-col md:flex-row gap-6 px-6">
+    <div class="flex-1">
+      <h3 class="text-xl font-semibold mb-2 text-center">Menu</h3>
+      <div class="grid grid-cols-2 gap-4">
+        <!-- Sample Items -->
+        <script>
+          document.addEventListener('DOMContentLoaded', () => {
+            const container = document.querySelector('.grid');
+            for (const [name, price] of Object.entries(items)) {
+              container.innerHTML += `
+                <div class="bg-white p-4 shadow rounded">
+                  <!-- Removed: <img src="${name.replaceAll(' ', '').toLowerCase()}.jpg" alt="${name}" class="w-full h-32 object-cover mb-2"> -->
+                  <h4 class="font-bold text-lg">${name}</h4>
+                  <p class="text-sm">Price: ₹${price}</p>
+                  <div class="flex gap-2 mt-2">
+                    <button onclick="updateCart('${name}', ${price}, -1)" class="bg-red-400 text-white px-2 rounded">-</button>
+                    <button onclick="updateCart('${name}', ${price}, 1)" class="bg-green-500 text-white px-2 rounded">Add</button>
+                  </div>
+                </div>`;
+            }
+          });
+        </script>
+      </div>
+    </div>
+    <div class="md:w-1/3">
+      <h3 class="text-xl font-semibold mb-2">Cart</h3>
+      <ul id="cart-values" class="bg-white p-4 shadow rounded space-y-1">
+        <li>Cart is empty</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- About Us -->
+  <section id="about" class="p-6 mt-8 bg-white">
+    <h3 class="text-xl font-bold mb-2">About Us</h3>
+    <p>Millet Bites brings healthy, millet-based snacks to your doorstep. Our mission is to make traditional Indian grains accessible, tasty, and affordable to all.</p>
+  </section>
+
+  <!-- Contact Us -->
+  <section id="contact" class="p-6 bg-gray-50">
+    <h3 class="text-xl font-bold mb-2">Contact Us</h3>
+    <p>Call us: <a href="tel:+919949840365" class="text-blue-600">9949840365</a>, <a href="tel:+919052967624" class="text-blue-600">9052967624</a></p>
+    <p>Instagram: <a href="https://instagram.com/vizagmilletbites" class="text-blue-600">@vizagmilletbites</a></p>
+  </section>
+
+  <!-- Customer Reviews -->
+  <section id="reviews" class="p-6 bg-white">
+    <h3 class="text-xl font-bold mb-2">Customer Reviews</h3>
+    <p>⭐⭐⭐⭐⭐ "Loved the combo pack, super tasty and guilt-free!"</p>
+    <p>⭐⭐⭐⭐ "Good snacks, quick delivery."</p>
+    <p>⭐⭐⭐⭐⭐ "Healthy and crunchy, my kids loved them!"</p>
+  </section>
+
+  <footer class="text-center p-4 bg-gray-200 mt-6">
+    © 2025 Millet Bites. All rights reserved.
+  </footer>
+</body>
+
+</html>
