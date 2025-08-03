@@ -510,20 +510,14 @@
 </head>
 <body>
   <div class="overlay" id="overlay"></div>
-  <div class="cart-panel" id="cartPanel">
-    <div class="cart-panel-header">
-      <h3>Your Cart</h3>
-      <button class="close-cart" id="closeCart">&times;</button>
-    </div>
-    <div class="cart-items" id="panel-cart-items">
-      <div class="empty-cart">Your cart is empty</div>
-    </div>
-    <div class="cart-summary">
-      <p>Total: ₹0.00</p>
-    </div>
-    <div class="cart-buttons">
-      <button class="order">Order on WhatsApp</button>
-      <button class="clear">Clear Cart</button>
+  <div class="cart-panel" id="cartPanel" style="max-width:420px; margin:40px auto; background:#fff; border-radius:12px; box-shadow:0 2px 16px rgba(0,0,0,0.15); padding:24px; position:fixed; top:50px; left:50%; transform:translateX(-50%); z-index:2000; display:none;">
+    <h2 style="text-align:center; color:#33691e; margin-bottom:18px;"><span style="font-size:1.2em;">🛒</span> Your Cart</h2>
+    <div id="panel-cart-items"></div>
+    <div class="cart-summary" id="cart-summary" style="margin:18px 0; text-align:center; font-size:1.1em; color:#33691e;"></div>
+    <div style="display:flex; gap:12px; justify-content:center; margin-top:18px;">
+      <button class="clear" id="clearCart" style="background:#b71c1c; color:#fff; border:none; border-radius:8px; padding:10px 24px; font-weight:bold; cursor:pointer;">Clear Cart</button>
+      <button class="order" id="orderWhatsapp" style="background:#25d366; color:#fff; border:none; border-radius:8px; padding:10px 24px; font-weight:bold; cursor:pointer;">Order via WhatsApp</button>
+      <button class="close-cart" id="closeCart" style="background:#222; color:#fff; border:none; border-radius:8px; padding:10px 24px; font-weight:bold; cursor:pointer;">Close</button>
     </div>
   </div>
 
