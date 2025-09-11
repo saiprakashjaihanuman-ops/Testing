@@ -17,8 +17,9 @@
       };
 
   const urlParams = new URLSearchParams(window.location.search);
-  const number = urlParams.get('number');
-  document.body.innerHTML = `<h1>Number from Page 1: ${number}</h1>`;
+  const total = urlParams.get('total');
+  document.body.innerHTML = `<h1>Total from Page 1: ₹${total}</h1>`;
+
         
         // Razorpay options
       var options = {
