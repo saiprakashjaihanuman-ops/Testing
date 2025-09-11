@@ -16,7 +16,6 @@
         pincode: document.getElementById("pincode").value
       };
 
-  const urlParams = new URLSearchParams(window.location.search);
   const total = urlParams.get('total');
   document.body.innerHTML = `<h1>Total from Page 1: ₹${total}</h1>`;
 
