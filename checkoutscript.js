@@ -1,4 +1,3 @@
-//checkoutscript.js
 var total = localStorage.getItem("orderTotal") || 0;
 total = parseFloat(total);
 
