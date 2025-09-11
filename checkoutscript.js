@@ -1,54 +1,48 @@
 //checkoutscript.js
-document.getElementById("checkout-form").addEventListener("submit", function (e) {
-  e.preventDefault();
+ var total = 500; // Example: amount in rupees
 
-  // Collect form data
-  var customer = {
-    name: document.getElementById("name").value,
-    phone: document.getElementById("phone").value,
-    email: document.getElementById("email").value,
-    door: document.getElementById("door").value,
-    street: document.getElementById("street").value,
-    area: document.getElementById("area").value,
-    nearby: document.getElementById("nearby").value,
-    city: document.getElementById("city").value,
-    state: document.getElementById("state").value,
-    pincode: document.getElementById("pincode").value,
-  };
+  document.getElementById("checkout-form").addEventListener("submit", function (e) {
+    e.preventDefault();
 
-  // ✅ Ensure amount is > 0
-  if (total <= 0) {
-    alert("Invalid total amount!");
-    return;
-  }
+    var customer = {
+      name: document.getElementById("name").value,
+      phone: document.getElementById("phone").value,
+      email: document.getElementById("email").value,
+      door: document.getElementById("door").value,
+      street: document.getElementById("street").value,
+      area: document.getElementById("area").value,
+      nearby: document.getElementById("nearby").value,
+      city: document.getElementById("city").value,
+      state: document.getElementById("state").value,
+      pincode: document.getElementById("pincode").value,
+    };
 
-  // Razorpay Options
-  var options = {
-    key: "rzp_test_RGFvmNP1FiIT6V", // Replace with your Key ID
-    amount: parseInt(total) * 100, // paise
-    currency: "INR",
-    name: "My Store",
-    description: "Product Purchase",
-    image: "https://yourdomain.com/logo.png",
-    handler: function (response) {
-      alert("✅ Payment successful!\nPayment ID: " + response.razorpay_payment_id);
-      console.log("Customer Details:", customer);
-      console.log("Payment Response:", response);
-    },
-    prefill: {
-      name: customer.name,
-      email: customer.email,
-      contact: customer.phone,
-    },
-    theme: {
-      color: "#3399cc",
-    },
-  };
+    if (total <= 0) {
+      alert("Invalid total amount!");
+      return;
+    }
 
-  // ✅ Always call Razorpay constructor inside event handler
-  var rzp1 = new Razorpay(options);
-  rzp1.open();
+    var options = {
+      key: "rzp_test_RGFvmNP1FiIT6V", // test key
+      amount: parseInt(total) * 100, // in paise
+      currency: "INR",
+      name: "My Store",
+      description: "Product Purchase",
+      handler: function (response) {
+        alert("✅ Payment successful!\nPayment ID: " + response.razorpay_payment_id);
+        console.log("Customer Details:", customer);
+        console.log("Payment Response:", response);
+      },
+      prefill: {
+        name: customer.name,
+        email: customer.email,
+        contact: customer.phone,
+      },
+      theme: {
+        color: "#3399cc",
+      },
+    };
 
-  // ✅ Prevent form from submitting
-  e.preventDefault();
-});
+    var rzp1 = new Razorpay(options);
+    rzp1.open();
+  });
