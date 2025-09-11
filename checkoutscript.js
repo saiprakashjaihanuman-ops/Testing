@@ -1,5 +1,7 @@
 //checkoutscript.js
- var total = 500; // Example: amount in rupees
+var total = localStorage.getItem("orderTotal") || 0;
+total = parseFloat(total);
+
 
   document.getElementById("checkout-form").addEventListener("submit", function (e) {
     e.preventDefault();
@@ -22,26 +24,29 @@
       return;
     }
 
-    var options = {
-      key: "rzp_test_RGFvmNP1FiIT6V", // test key
-      amount: parseInt(total) * 100, // in paise
-      currency: "INR",
-      name: "My Store",
-      description: "Product Purchase",
-      handler: function (response) {
-        alert("✅ Payment successful!\nPayment ID: " + response.razorpay_payment_id);
-        console.log("Customer Details:", customer);
-        console.log("Payment Response:", response);
-      },
-      prefill: {
-        name: customer.name,
-        email: customer.email,
-        contact: customer.phone,
-      },
-      theme: {
-        color: "#3399cc",
-      },
-    };
+var options = {
+  key: "rzp_test_RGFvmNP1FiIT6V",
+  amount: parseInt(total) * 100, // convert to paise
+  currency: "INR",
+  name: "My Store",
+  description: "Product Purchase",
+  handler: function (response) {
+    alert("✅ Payment successful!\nPayment ID: " + response.razorpay_payment_id);
+    console.log("Customer Details:", customer);
+    console.log("Payment Response:", response);
+
+    // clear localStorage after success
+    localStorage.removeItem("orderTotal");
+  },
+  prefill: {
+    name: customer.name,
+    email: customer.email,
+    contact: customer.phone,
+  },
+  theme: {
+    color: "#3399cc",
+  },
+};
 
     var rzp1 = new Razorpay(options);
     rzp1.open();
