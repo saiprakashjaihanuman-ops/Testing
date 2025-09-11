@@ -16,11 +16,11 @@
         pincode: document.getElementById("pincode").value
       };
 
-         const total = localStorage.getItem("orderTotal");
-         if (total) {
-         document.getElementById("totalAmount").innerText = "Total: ₹" + total;
-         }
-        
+  const params = new URLSearchParams(window.location.search);
+  const total = params.get("total");
+  if (total) {
+    document.getElementById("totalAmount").innerText = "Total: ₹" + total;
+  }        
       // Razorpay options
       var options = {
           "key": "rzp_test_RGFvmNP1FiIT6V", // 🔑 Replace with your Razorpay Key ID
