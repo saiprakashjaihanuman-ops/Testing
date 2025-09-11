@@ -312,44 +312,33 @@ function renderProductsByCategory(category) {
       document.getElementById("overlay").classList.toggle("active");
     }
 
-    function sendOrder() {
-      if (Object.keys(cart).length === 0) {
-        alert("Your cart is empty!");
-        return;
+function sendOrder() { 
+  if (Object.keys(cart).length === 0) {
+    alert("Your cart is empty!");
+    return;
+  }
+
+  // Calculate total
+  let total = 0;
+  for (const productName in cart) {
+    const item = cart[productName];
+    if (item.product.type === "combo") {
+      total += item.quantity * item.product.price;
+    } else {
+      if (item.product.pricePer === 250) {
+        total += (item.quantity / 250) * item.product.price;
+      } else {
+        total += (item.quantity / 100) * item.product.price;
       }
-      
-      let msg = "Hello! I'd like to order:\n\n";
-      
-      for (const productName in cart) {
-        const item = cart[productName];
-        if (item.product.type === "combo") {
-          msg += `${productName}: ${item.quantity} Pack${item.quantity > 1 ? 's' : ''}\n`;
-        } else {
-          msg += `${productName}: ${item.quantity >= 1000 ? (item.quantity/1000).toFixed(2) + ' kg' : item.quantity + ' g'}\n`;
-        }
-      }
-      
-      // Calculate total
-      let total = 0;
-      for (const productName in cart) {
-        const item = cart[productName];
-        if (item.product.type === "combo") {
-          total += item.quantity * item.product.price;
-        } else {
-          // For weight-based items, check if price is per 100g or per 250g
-          if (item.product.pricePer === 250) {
-            total += (item.quantity / 250) * item.product.price;
-          } else {
-            total += (item.quantity / 100) * item.product.price;
-          }
-        }
-      }
-      
-      msg += `\nTotal: ₹${total.toFixed(2)}\n\nPlease confirm my order.`;
-      
-      const encodedMsg = encodeURIComponent(msg);
-      window.open(`https://wa.me/919949840365?text=${encodedMsg}`, "_blank");
     }
+  }
+
+  // Save total in localStorage
+  localStorage.setItem("orderTotal", total.toFixed(2));
+
+  // Redirect to checkout page
+  window.location.href = "checkout.html";
+}
 
     document.addEventListener("DOMContentLoaded", () => {
       renderCategories();
