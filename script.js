@@ -1,4 +1,3 @@
-//script.js
     let slideIndex = 1;
     let slideTimer;
 
