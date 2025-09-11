@@ -312,6 +312,23 @@ function renderProductsByCategory(category) {
       document.getElementById("overlay").classList.toggle("active");
     }
 
+window.getCartTotal = function() {
+  let total = 0;
+  for (const productName in cart) {
+    const item = cart[productName];
+    if (item.product.type === "combo") {
+      total += item.quantity * item.product.price;
+    } else {
+      if (item.product.pricePer === 250) {
+        total += (item.quantity / 250) * item.product.price;
+      } else {
+        total += (item.quantity / 100) * item.product.price;
+      }
+    }
+  }
+  return total;
+};
+
 function sendOrder() { 
   if (Object.keys(cart).length === 0) {
     alert("Your cart is empty!");
@@ -336,7 +353,7 @@ function sendOrder() {
     localStorage.setItem("orderTotal", total.toFixed(2));
 const systemNumber = total;
     // Redirect to checkout.html
- window.location.href = "checkout.html?total=${systemNumber}";
+ window.location.href = 'checkout.html?total=${systemNumber}';
 }
 
 
