@@ -334,10 +334,12 @@ function sendOrder() {
     }
   }
 
-    // Redirect to checkout.html
- window.location.href = "checkout.html";
-}
+  // Save total in localStorage
+  localStorage.setItem("orderTotal", total);
 
+  // Redirect to checkout
+  window.location.href = "checkout.html";
+}
 
     document.addEventListener("DOMContentLoaded", () => {
       renderCategories();
