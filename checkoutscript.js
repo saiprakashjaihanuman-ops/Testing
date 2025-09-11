@@ -16,16 +16,16 @@
         pincode: document.getElementById("pincode").value
       };
 
-    const params = new URLSearchParams(window.location.search);
-    const total = params.get("total");
-
+  window.onload = function() {
+    const total = localStorage.getItem("orderTotal");
     if (total) {
       document.getElementById("totalAmount").innerText = "Total: ₹" + total;
     } else {
       document.getElementById("totalAmount").innerText = "No total found.";
     }
+  };
         
-      // Razorpay options
+        // Razorpay options
       var options = {
           "key": "rzp_test_RGFvmNP1FiIT6V", // 🔑 Replace with your Razorpay Key ID
           "amount": window.getCartTotal() * 100, // convert ₹ to paise
