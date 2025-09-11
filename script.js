@@ -336,9 +336,10 @@ function sendOrder() {
   // Save total in localStorage
   localStorage.setItem("orderTotal", total.toFixed(2));
 
-  // Redirect to checkout page
+  // Redirect to checkout.html
   window.location.href = "checkout.html";
 }
+
 
     document.addEventListener("DOMContentLoaded", () => {
       renderCategories();
