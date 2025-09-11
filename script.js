@@ -333,8 +333,9 @@ function sendOrder() {
     }
   }
 
+    localStorage.setItem("orderTotal", total.toFixed(2));
 
-  // Redirect to checkout.html
+    // Redirect to checkout.html
  window.location.href = "checkout.html?total=" + total.toFixed(2);
 }
 
