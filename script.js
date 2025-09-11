@@ -334,10 +334,8 @@ function sendOrder() {
     }
   }
 
-    localStorage.setItem("orderTotal", total.toFixed(2));
-const systemNumber = total;
     // Redirect to checkout.html
- window.location.href = 'checkout.html?total=${systemNumber}';
+ window.location.href = "checkout.html";
 }
 
 
