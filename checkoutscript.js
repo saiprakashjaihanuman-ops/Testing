@@ -15,14 +15,15 @@
         state: document.getElementById("state").value,
         pincode: document.getElementById("pincode").value
       };
-        
-    const total = localStorage.getItem("orderTotal");
 
+    window.onload = function() {
+    const total = localStorage.getItem("orderTotal");
     if (total) {
       document.getElementById("totalAmount").innerText = "Total: ₹" + total;
     } else {
       document.getElementById("totalAmount").innerText = "No total found.";
     }
+    };
         
       // Razorpay options
       var options = {
