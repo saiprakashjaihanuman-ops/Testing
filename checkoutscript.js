@@ -16,14 +16,14 @@
         pincode: document.getElementById("pincode").value
       };
 
-  window.onload = function() {
-    const total = localStorage.getItem("orderTotal");
-    if (total) {
-      document.getElementById("totalAmount").innerText = "Total: ₹" + total;
-    } else {
-      document.getElementById("totalAmount").innerText = "No total found.";
-    }
-  };
+    window.onload = function() {
+      const total = localStorage.getItem("orderTotal");
+      if (total) {
+        document.getElementById("checkoutTotal").innerText = total;
+      } else {
+        document.getElementById("checkoutTotal").innerText = "0.00";
+      }
+    };
         
         // Razorpay options
       var options = {
