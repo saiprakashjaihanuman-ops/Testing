@@ -17,7 +17,7 @@
       };
 
   const total = urlParams.get('total');
-  document.body.innerHTML = `<h1>Total from Page 1: ₹${total}</h1>`;
+  document.body.innerHTML = `<h1>Total : ₹${total}</h1>`;
 
         
         // Razorpay options
