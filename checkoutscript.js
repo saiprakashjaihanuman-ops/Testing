@@ -16,14 +16,9 @@
         pincode: document.getElementById("pincode").value
       };
 
-    window.onload = function() {
-      const total = localStorage.getItem("orderTotal");
-      if (total) {
-        document.getElementById("checkoutTotal").innerText = total;
-      } else {
-        document.getElementById("checkoutTotal").innerText = "0.00";
-      }
-    };
+  const urlParams = new URLSearchParams(window.location.search);
+  const number = urlParams.get('number');
+  document.body.innerHTML = `<h1>Number from Page 1: ${number}</h1>`;
         
         // Razorpay options
       var options = {
