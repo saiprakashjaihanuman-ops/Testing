@@ -333,10 +333,17 @@ function sendOrder() {
     }
   }
 
-    localStorage.setItem("orderTotal", total.toFixed(2));
+    document.getElementById("order").onclick = function() {
+      // Get total from index.html
+      const totalElement = document.getElementById("totalAmount");
+      const total = totalElement.innerText;
 
-    // Redirect to checkout.html
- window.location.href = "checkout.html?total=" + total.toFixed(2);
+      // Store total in localStorage
+      localStorage.setItem("orderTotal", total);
+
+      // Redirect to checkout.html
+      window.location.href = "checkout.html";
+    };
 }
 
 
