@@ -16,10 +16,6 @@ document.getElementById("checkout-form").addEventListener("submit", function (e)
     pincode: document.getElementById("pincode").value,
   };
 
-  // ✅ Get total from URL params
-  const urlParams = new URLSearchParams(window.location.search);
-  const total = urlParams.get("total") || 0;
-
   // ✅ Ensure amount is > 0
   if (total <= 0) {
     alert("Invalid total amount!");
