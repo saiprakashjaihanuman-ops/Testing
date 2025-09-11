@@ -24,6 +24,10 @@
       document.getElementById("totalAmount").innerText = "No total found.";
     }
     };
+
+      document.getElementById("payBtn").onclick = function() {
+      alert("Redirecting to payment for ₹" + localStorage.getItem("orderTotal"));
+    };
         
       // Razorpay options
       var options = {
