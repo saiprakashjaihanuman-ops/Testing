@@ -664,7 +664,7 @@ html {
   display: flex;
   justify-content: center; /* Heading on the left, cart on the right */
   align-items: center; /* Vertically center them */
-  margin-bottom: 20px;
+  margin-bottom: 0px 20px;
 }
 
 .menu-header h2 {
