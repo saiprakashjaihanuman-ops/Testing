@@ -662,7 +662,7 @@ html {
 
 .menu-header {
   display: flex;
-  justify-content: space-between; /* Heading on the left, cart on the right */
+  justify-content: center; /* Heading on the left, cart on the right */
   align-items: center; /* Vertically center them */
   margin-bottom: 20px;
 }
