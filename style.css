@@ -673,7 +673,10 @@ html {
 }
 
 .menu-header .cart-icon {
+  position: absolute;
+  right: 0;
   display: flex;
   align-items: center;
-  gap: 5px; /* space between cart image and count */
+  gap: 5px; /* space between image and count */
 }
+
