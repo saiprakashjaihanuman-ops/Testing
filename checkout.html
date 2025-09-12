@@ -3,13 +3,22 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Checkout | Razorpay Demo</title>
+  <title>Checkout | Millet Bites</title>
   <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
   <link rel="stylesheet" href="checkoutstyle.css">
 </head>
 <body>
   <div class="checkout-container">
     <h2>Checkout</h2>
+
+    <!-- ✅ Order Summary Section -->
+    <div class="order-summary">
+      <h3>Your Order</h3>
+      <div id="order-items"></div>
+      <p id="order-total" style="font-weight: bold;"></p>
+    </div>
+    <!-- ✅ End Order Summary -->
+
     <form id="checkout-form">
       <div class="form-group">
         <label>Name</label>
@@ -54,6 +63,7 @@
       <button type="submit">Proceed to Pay</button>
     </form>
   </div>
+
   <script src="script.js"></script> 
   <script src="checkoutscript.js"></script>
 </body>
