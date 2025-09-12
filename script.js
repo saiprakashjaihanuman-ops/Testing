@@ -133,14 +133,7 @@ function renderProductsByCategory(category) {
         <div class="cart-status" id="status-${product.name}"></div>
       `;
     } else {
-      const quantityOptions = product.minQty === 170 
-  ? [
-      { value: 170, label: "170g" },
-      { value: 250, label: "250g" },
-      { value: 500, label: "500g" },
-      { value: 1000, label: "1KG" }
-    ]
-      :product.minQty === 250 ? [
+      const quantityOptions = product.minQty === 250 ? [
         { value: 250, label: "250g" },
         { value: 500, label: "500g" },
         { value: 1000, label: "1KG" }
@@ -264,9 +257,6 @@ function renderProductsByCategory(category) {
           if (item.product.pricePer === 250) {
             // Price is per 250g
             itemTotal = (item.quantity / 250) * item.product.price;
-          } else if(item.product.pricePer === 170) {
-             // Price is per 170g
-             itemTotal = (item.quantity / 170) * item.product.price;
           } else {
             // Default to price per 100g
             itemTotal = (item.quantity / 100) * item.product.price;
@@ -330,8 +320,6 @@ function sendOrder() {
     } else {
       if (item.product.pricePer === 250) {
         total += (item.quantity / 250) * item.product.price;
-      } else if (item.product.pricePer === 170) {
-        total += (item.quantity / 170) * item.product.price;
       } else {
         total += (item.quantity / 100) * item.product.price;
       }
