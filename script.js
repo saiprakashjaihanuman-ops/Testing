@@ -264,6 +264,9 @@ function renderProductsByCategory(category) {
           if (item.product.pricePer === 250) {
             // Price is per 250g
             itemTotal = (item.quantity / 250) * item.product.price;
+          } else if(item.product.pricePer === 170) {
+             // Price is per 170g
+             itemTotal = (item.quantity / 170) * item.product.price;
           } else {
             // Default to price per 100g
             itemTotal = (item.quantity / 100) * item.product.price;
