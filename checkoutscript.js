@@ -61,6 +61,7 @@ document.getElementById("checkout-form").addEventListener("submit", function (e)
     name: "Millet Bites",
     description: "Product Purchase",
     handler: function (response) {
+      // ✅ Payment Success
       alert("✅ Payment successful!\nPayment ID: " + response.razorpay_payment_id);
 
       console.log("Customer Details:", customer);
@@ -82,5 +83,15 @@ document.getElementById("checkout-form").addEventListener("submit", function (e)
   };
 
   var rzp1 = new Razorpay(options);
+
+  // ✅ Handle payment failure / cancellation
+  rzp1.on("payment.failed", function (response) {
+    alert("❌ Payment failed or was cancelled. Please try ordering again.");
+    console.error("Payment Failed:", response.error);
+
+    // Do NOT clear cart, just redirect to index
+    window.location.href = "index.html";
+  });
+
   rzp1.open();
 });
