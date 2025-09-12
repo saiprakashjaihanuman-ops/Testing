@@ -1,10 +1,8 @@
-var total = localStorage.getItem("orderTotal") || 0;
-total = parseFloat(total);
-
-// ✅ Load cart details
+// ✅ Get order details from localStorage
+var total = parseFloat(localStorage.getItem("orderTotal")) || 0;
 var orderCart = JSON.parse(localStorage.getItem("orderCart")) || {};
 
-// Render order summary
+// ✅ Render order summary
 function renderOrderSummary() {
   const orderItemsDiv = document.getElementById("order-items");
   const orderTotalP = document.getElementById("order-total");
@@ -18,7 +16,13 @@ function renderOrderSummary() {
   let html = "<ul>";
   for (const productName in orderCart) {
     const item = orderCart[productName];
-    html += `<li>${productName} - ${item.quantity} ${item.unit} </li>`;
+    let qtyText = item.product.type === "combo"
+      ? `${item.quantity} Pack${item.quantity > 1 ? "s" : ""}`
+      : item.quantity >= 1000
+        ? (item.quantity / 1000).toFixed(2) + " kg"
+        : item.quantity + " g";
+
+    html += `<li>${productName} - ${qtyText}</li>`;
   }
   html += "</ul>";
 
@@ -28,7 +32,7 @@ function renderOrderSummary() {
 
 document.addEventListener("DOMContentLoaded", renderOrderSummary);
 
-// ✅ Payment flow
+// ✅ Handle payment
 document.getElementById("checkout-form").addEventListener("submit", function (e) {
   e.preventDefault();
 
@@ -51,8 +55,8 @@ document.getElementById("checkout-form").addEventListener("submit", function (e)
   }
 
   var options = {
-    key: "rzp_test_RGFvmNP1FiIT6V",
-    amount: parseInt(total) * 100, // convert to paise
+    key: "rzp_test_RGFvmNP1FiIT6V", // Replace with your Razorpay Key
+    amount: parseInt(total) * 100, // Convert to paise
     currency: "INR",
     name: "Millet Bites",
     description: "Product Purchase",
