@@ -327,14 +327,17 @@ function sendOrder() {
     } else {
       if (item.product.pricePer === 250) {
         total += (item.quantity / 250) * item.product.price;
+      } else if (item.product.pricePer === 170) {
+        total += (item.quantity / 170) * item.product.price;
       } else {
         total += (item.quantity / 100) * item.product.price;
       }
     }
   }
 
-  // Save total in localStorage
+  // ✅ Save both total and cart
   localStorage.setItem("orderTotal", total);
+  localStorage.setItem("orderCart", JSON.stringify(cart));
 
   // Redirect to checkout
   window.location.href = "checkout.html";
