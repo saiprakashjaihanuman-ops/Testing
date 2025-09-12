@@ -155,7 +155,7 @@ function renderProductsByCategory(category) {
         <div class="discount-badge">20% OFF</div>
         <img src="${product.image}" alt="${product.name}" />
         <h4>${product.name}</h4>
-        <p>₹${product.price} - ${product.minQty===250?'250g':'100g'}</p>
+        <p>₹${product.price} - ${product.minQty}g</p>
         <div class="quantity-controls">
           <button onclick="removeFromCart('${product.name}')">-</button>
           <select id="select-${product.name}">
