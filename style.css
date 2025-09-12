@@ -680,3 +680,14 @@ html {
   gap: 5px; /* space between image and count */
 }
 
+.menu-header .cart-count {
+  background-color: orange; /* or your theme color */
+  color: white;
+  font-weight: bold;
+  font-size: 1.2rem; /* bigger */
+  padding: 3px 8px;
+  border-radius: 50%;
+  display: inline-block;
+  text-align: center;
+  min-width: 24px; /* make it circular */
+}
