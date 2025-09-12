@@ -674,6 +674,7 @@ html {
 
 .menu-header .cart-icon {
   position: absolute;
+  padding: 0px 10px;
   right: 0;
   display: flex;
   align-items: center;
