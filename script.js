@@ -365,6 +365,7 @@ function sendOrder() {
     });
 
 window.addEventListener("load", function () {
+  // ✅ Success case
   const successData = JSON.parse(localStorage.getItem("paymentSuccess"));
   if (successData) {
     let summary = "<h3>🧾 Order Summary:</h3><ul>";
@@ -385,13 +386,9 @@ window.addEventListener("load", function () {
     summary += `<p>${successData.customer.door}, ${successData.customer.street}, ${successData.customer.area}</p>`;
     summary += `<p>${successData.customer.city}, ${successData.customer.state} - ${successData.customer.pincode}</p>`;
 
-    // Inject summary into modal
     document.getElementById("orderSummary").innerHTML = summary;
-
-    // Show modal
     document.getElementById("successModal").style.display = "flex";
 
-    // Close modal on X or OK
     document.getElementById("closeSuccessModal").onclick = closeModal;
     document.getElementById("okBtn").onclick = closeModal;
 
@@ -399,7 +396,22 @@ window.addEventListener("load", function () {
       document.getElementById("successModal").style.display = "none";
     }
 
-    // Clear stored success data
     localStorage.removeItem("paymentSuccess");
+  }
+
+  // ❌ Failure case
+  if (localStorage.getItem("paymentFailure")) {
+    document.getElementById("failureModal").style.display = "flex";
+
+    document.getElementById("closeFailureModal").onclick = closeFailModal;
+    document.getElementById("retryBtn").onclick = function () {
+      window.location.href = "checkout.html";
+    };
+
+    function closeFailModal() {
+      document.getElementById("failureModal").style.display = "none";
+    }
+
+    localStorage.removeItem("paymentFailure");
   }
 });
