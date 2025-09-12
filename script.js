@@ -52,7 +52,6 @@ const products = [
   { name: "Combo Pack 2", image: "b2.jpeg", price: 299, type: "combo", category: "combo" },
   { name: "Combo Pack 3", image: "b3.jpeg", price: 399, type: "combo", category: "combo" },
   { name: "Combo Pack 4", image: "b4.jpeg", price: 599, type: "combo", category: "combo" },
-  { name: "Cashew Bar", image: "Cashew Bar.jpeg", price: 200, type: "combo", category: "dryfruits", minQty: 170 },
 
   { name: "Ragi Mixture", image: "Ragi Mixture.jpeg", price: 60, type: "weight", category: "hots" },
   { name: "Ragi Chegodilu", image: "Ragi Chegodilu.jpeg", price: 60, type: "weight", category: "hots" },
@@ -66,6 +65,7 @@ const products = [
 
   { name: "Dry Fruit Mixture", image: "Dry Fruit Mixture.jpeg", price: 180, type: "weight", category: "dryfruits" },
   { name: "Dry Fruit Laddu", image: "Dry Fruit Laddu.jpeg", price: 300, type: "weight", category: "sweets", minQty: 250, pricePer: 250 },
+  { name: "Cashew Bar", image: "Cashew Bar.jpeg", price: 200, type: "combo", category: "dryfruits", minQty:170 },
   { name: "Panchadara Gavvalu", image: "Panchadara Gavvalu.jpg", price: 100, type: "weight", category: "sweets", minQty: 250, pricePer: 250 },
   { name: "Bellam Gavvalu", image: "Bellam Gavvalu.jpeg", price: 100, type: "weight", category: "sweets", minQty: 250, pricePer: 250 },
   { name: "Hot Gavvalu", image: "Hot Gavvalu.jpeg", price: 100, type: "weight", category: "hots", minQty: 250, pricePer: 250 }
@@ -122,7 +122,7 @@ function renderProductsByCategory(category) {
         <div class="discount-badge">Best Offer</div>
         <img src="${product.image}" alt="${product.name}" />
         <h4>${product.name}</h4>
-        <p>₹${product.price} - pack</p>
+        <p>₹${product.price} -  ${product.minQty===170?'170g':'Pack'}</p>
         <div class="quantity-controls">
           <button onclick="removeFromCart('${product.name}')">-</button>
           <select id="select-${product.name}">
