@@ -363,3 +363,32 @@ function sendOrder() {
         updateCartCount();
       });
     });
+
+window.addEventListener("load", function () {
+  const successData = JSON.parse(localStorage.getItem("paymentSuccess"));
+  if (successData) {
+    let summary = "✅ Payment Successful!\n\n";
+    summary += "🧾 Order Summary:\n";
+    for (const productName in successData.cart) {
+      const item = successData.cart[productName];
+      let qtyText = item.product.type === "combo"
+        ? `${item.quantity} Pack${item.quantity > 1 ? "s" : ""}`
+        : item.quantity >= 1000
+          ? (item.quantity / 1000).toFixed(2) + " kg"
+          : item.quantity + " g";
+      summary += `- ${productName}: ${qtyText}\n`;
+    }
+    summary += `\n💰 Total Paid: ₹${successData.total.toFixed(2)}\n`;
+    summary += `🆔 Payment ID: ${successData.paymentId}\n\n`;
+    summary += "📍 Delivery Details:\n";
+    summary += `${successData.customer.name}, ${successData.customer.phone}\n`;
+    summary += `${successData.customer.door}, ${successData.customer.street}, ${successData.customer.area}\n`;
+    summary += `${successData.customer.city}, ${successData.customer.state} - ${successData.customer.pincode}\n`;
+
+    // ✅ Show popup AFTER page loads
+    alert(summary);
+
+    // ✅ Clear payment success data so popup doesn’t repeat
+    localStorage.removeItem("paymentSuccess");
+  }
+});
