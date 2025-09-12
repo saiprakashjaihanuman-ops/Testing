@@ -61,16 +61,20 @@ document.getElementById("checkout-form").addEventListener("submit", function (e)
     name: "Millet Bites",
     description: "Product Purchase",
     handler: function (response) {
-      // ✅ Payment Success
-      alert("✅ Payment successful!\nPayment ID: " + response.razorpay_payment_id);
+      // ✅ Save success details in localStorage
+      localStorage.setItem("paymentSuccess", JSON.stringify({
+        customer: customer,
+        cart: orderCart,
+        total: total,
+        paymentId: response.razorpay_payment_id
+      }));
 
-      console.log("Customer Details:", customer);
-      console.log("Order Cart:", orderCart);
-      console.log("Payment Response:", response);
-
-      // Clear storage after success
+      // ✅ Clear cart storage
       localStorage.removeItem("orderTotal");
       localStorage.removeItem("orderCart");
+
+      // Redirect to index.html
+      window.location.href = "index.html";
     },
     prefill: {
       name: customer.name,
@@ -87,10 +91,7 @@ document.getElementById("checkout-form").addEventListener("submit", function (e)
   // ✅ Handle payment failure / cancellation
   rzp1.on("payment.failed", function (response) {
     alert("❌ Payment failed or was cancelled. Please try ordering again.");
-    console.error("Payment Failed:", response.error);
-
-    // Do NOT clear cart, just redirect to index
-    window.location.href = "index.html";
+    window.location.href = "index.html"; // cart remains intact
   });
 
   rzp1.open();
