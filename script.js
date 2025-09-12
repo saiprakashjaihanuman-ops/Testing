@@ -133,7 +133,7 @@ function renderProductsByCategory(category) {
         <div class="cart-status" id="status-${product.name}"></div>
       `;
     } else {
-      const quantityOptions = product.name === "Cashew Bar" 
+      const quantityOptions = product.minQty === 170 
   ? [
       { value: 170, label: "170g" },
       { value: 250, label: "250g" },
