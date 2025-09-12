@@ -659,3 +659,21 @@ html {
   font-weight: bold;
   cursor: pointer;
 }
+
+.menu-header {
+  display: flex;
+  justify-content: space-between; /* Heading on the left, cart on the right */
+  align-items: center; /* Vertically center them */
+  margin-bottom: 20px;
+}
+
+.menu-header h2 {
+  margin: 0; /* Remove default margin */
+  font-size: 2rem;
+}
+
+.menu-header .cart-icon {
+  display: flex;
+  align-items: center;
+  gap: 5px; /* space between cart image and count */
+}
