@@ -84,15 +84,16 @@ document.getElementById("checkout-form").addEventListener("submit", function (e)
     theme: {
       color: "#3399cc",
     },
+    modal: {
+      ondismiss: function () {
+        // ❌ Payment dismissed (failed/canceled)
+        localStorage.setItem("paymentFailure", "true");
+        window.location.href = "index.html";
+      }
+    }
   };
 
   var rzp1 = new Razorpay(options);
-
-  // ✅ Handle payment failure / cancellation
-  rzp1.on("payment.failed", function (response) {
-    alert("❌ Payment failed or was cancelled. Please try ordering again.");
-    window.location.href = "index.html"; // cart remains intact
-  });
 
   rzp1.open();
 });
